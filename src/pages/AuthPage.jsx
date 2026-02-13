@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     GraduationCap,
     Briefcase,
@@ -8,7 +8,12 @@ import {
     Lock,
     ArrowRight,
     ArrowLeft,
-    CheckCircle2
+    CheckCircle2,
+    Building2,
+    Globe,
+    BriefcaseIcon,
+    Linkedin,
+    Sparkles
 } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import Button from '../components/ui/Button';
@@ -22,8 +27,8 @@ import user1 from '../assets/images/user1.jpg';
 import user2 from '../assets/images/user2.jpg';
 import user3 from '../assets/images/user3.jpg';
 
-// Sidebar
-const SidebarContent = () => {
+// Sidebar - Memoized to prevent re-renders
+const SidebarContent = React.memo(() => {
     const users = [user1, user2, user3];
     return (
         <div className="relative z-10 font-outfit h-full flex flex-col p-8 sm:p-12 lg:p-16">
@@ -63,7 +68,9 @@ const SidebarContent = () => {
             </div>
         </div>
     );
-};
+});
+
+SidebarContent.displayName = 'SidebarContent';
 
 // Auth
 const AuthPage = () => {
@@ -75,16 +82,21 @@ const AuthPage = () => {
         firstName: '',
         lastName: '',
         email: '',
+        companyName: '',
+        jobTitle: '',
+        linkedinUrl: '',
+        experience: '',
+        website: '',
         password: '',
         confirmPassword: ''
     });
     const [errors, setErrors] = useState({});
 
-    const roles = [
+    const roles = useMemo(() => [
         { id: 'learner', label: 'Learner', icon: <GraduationCap /> },
         { id: 'mentor', label: 'Mentor', icon: <Users /> },
         { id: 'employer', label: 'Employer', icon: <Briefcase /> }
-    ];
+    ], []);
 
     const handleInputChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -106,6 +118,16 @@ const AuthPage = () => {
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = "Invalid email";
         }
+
+        if (formData.role === 'mentor') {
+            if (!formData.jobTitle) newErrors.jobTitle = "Required";
+            if (!formData.experience) newErrors.experience = "Required";
+        }
+        if (formData.role === 'employer') {
+            if (!formData.companyName) newErrors.companyName = "Required";
+            if (!formData.jobTitle) newErrors.jobTitle = "Required";
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -159,6 +181,71 @@ const AuthPage = () => {
         setErrors({});
     };
 
+    const renderRoleSpecificFields = () => {
+        switch (formData.role) {
+            case 'mentor':
+                return (
+                    <div className="grid grid-cols-2 gap-4 animate-fade-in">
+                        <Input
+                            label="Current Job Title"
+                            placeholder="Senior Engineer"
+                            icon={BriefcaseIcon}
+                            value={formData.jobTitle}
+                            error={errors.jobTitle}
+                            onChange={(e) => handleInputChange('jobTitle', e.target.value)}
+                        />
+                        <Input
+                            label="Years of Exp."
+                            placeholder="Ex: 5"
+                            icon={Sparkles}
+                            value={formData.experience}
+                            error={errors.experience}
+                            onChange={(e) => handleInputChange('experience', e.target.value)}
+                        />
+                        <Input
+                            label="LinkedIn URL"
+                            placeholder="linkedin.com/in/..."
+                            icon={Linkedin}
+                            className="col-span-2"
+                            value={formData.linkedinUrl}
+                            onChange={(e) => handleInputChange('linkedinUrl', e.target.value)}
+                        />
+                    </div>
+                );
+            case 'employer':
+                return (
+                    <div className="grid grid-cols-2 gap-4 animate-fade-in">
+                        <Input
+                            label="Company Name"
+                            placeholder="Acme Corp"
+                            icon={Building2}
+                            value={formData.companyName}
+                            error={errors.companyName}
+                            onChange={(e) => handleInputChange('companyName', e.target.value)}
+                        />
+                        <Input
+                            label="Your Role"
+                            placeholder="Hiring Manager"
+                            icon={User}
+                            value={formData.jobTitle}
+                            error={errors.jobTitle}
+                            onChange={(e) => handleInputChange('jobTitle', e.target.value)}
+                        />
+                        <Input
+                            label="Company Website"
+                            placeholder="www.company.com"
+                            icon={Globe}
+                            className="col-span-2"
+                            value={formData.website}
+                            onChange={(e) => handleInputChange('website', e.target.value)}
+                        />
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
     const renderForm = () => {
         if (mode === 'login') return <LoginForm />;
 
@@ -203,6 +290,8 @@ const AuthPage = () => {
                             error={errors.email}
                             onChange={(e) => handleInputChange('email', e.target.value)}
                         />
+
+                        {renderRoleSpecificFields()}
 
                         <Button
                             fullWidth
@@ -278,12 +367,13 @@ const AuthPage = () => {
 
     return (
         <Layout>
-            <div className="w-full flex flex-col lg:flex-row min-h-[calc(100vh-64px)] overflow-hidden relative">
+            <div className="w-full flex flex-col lg:flex-row min-h-[calc(100vh-64px)] overflow-hidden relative bg-white">
                 <div className="absolute inset-0 lg:hidden overflow-hidden pointer-events-none">
                     <img src={authBg} alt="Bg" className="w-full h-full object-cover opacity-10 blur-sm scale-105" />
                     <div className="absolute inset-0 bg-white/60"></div>
                 </div>
 
+                {/* Sidebar - Static, won't re-render */}
                 <div className="hidden lg:flex lg:w-[45%] relative bg-slate-900 overflow-hidden shrink-0">
                     <img src={authBg} alt="Bg" className="absolute inset-0 w-full h-full object-cover opacity-60 animate-ken-burns" />
                     <div className="absolute inset-0 bg-blue-900/40 mix-blend-multiply"></div>
@@ -291,6 +381,7 @@ const AuthPage = () => {
                     <SidebarContent />
                 </div>
 
+                {/* Form Area - Only this re-renders */}
                 <div className="w-full lg:w-[55%] flex items-center justify-center p-8 sm:p-12 lg:p-16 bg-white relative z-10 overflow-y-auto custom-scrollbar">
                     <div className="w-full max-w-[440px] py-12">
                         <div className="flex gap-10 border-b border-slate-100 mb-10 relative">
