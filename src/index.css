@@ -1,1 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-primary-light: #eff6ff;
+    --color-text-main: #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94a3b8;
+    --color-bg-base: #f8fafc;
+
+    --font-outfit: "Outfit", sans-serif;
+
+    --radius-custom-md: 10px;
+    --radius-custom-lg: 16px;
+    --shadow-blue-button: 0 10px 15px -3px rgba(37, 99, 235, 0.2), 0 4px 6px -4px rgba(37, 99, 235, 0.1);
+}
+
+@layer base {
+    body {
+        @apply font-outfit bg-bg-base text-text-main antialiased selection:bg-blue-100 selection:text-blue-900;
+    }
+}
+
+@layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #cbd5e1;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .animate-slide-right {
+        animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-slide-left {
+        animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-ken-burns {
+        animation: kenBurns 25s ease-in-out infinite;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes kenBurns {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
