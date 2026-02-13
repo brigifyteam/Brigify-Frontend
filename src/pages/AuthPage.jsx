@@ -27,7 +27,20 @@ import user1 from '../assets/images/user1.jpg';
 import user2 from '../assets/images/user2.jpg';
 import user3 from '../assets/images/user3.jpg';
 
-// Sidebar - Memoized to prevent re-renders
+// Static Sidebar Background - Never re-renders
+const StaticSidebarBackground = React.memo(() => {
+    return (
+        <>
+            <img src={authBg} alt="Bg" className="absolute inset-0 w-full h-full object-cover opacity-60 animate-ken-burns" />
+            <div className="absolute inset-0 bg-blue-900/40 mix-blend-multiply"></div>
+            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.05 }}></div>
+        </>
+    );
+});
+
+StaticSidebarBackground.displayName = 'StaticSidebarBackground';
+
+// Sidebar Content - Memoized
 const SidebarContent = React.memo(() => {
     const users = [user1, user2, user3];
     return (
@@ -373,15 +386,13 @@ const AuthPage = () => {
                     <div className="absolute inset-0 bg-white/60"></div>
                 </div>
 
-                {/* Sidebar - Static, won't re-render */}
+                {/* Sidebar - Completely static */}
                 <div className="hidden lg:flex lg:w-[45%] relative bg-slate-900 overflow-hidden shrink-0">
-                    <img src={authBg} alt="Bg" className="absolute inset-0 w-full h-full object-cover opacity-60 animate-ken-burns" />
-                    <div className="absolute inset-0 bg-blue-900/40 mix-blend-multiply"></div>
-                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.05 }}></div>
+                    <StaticSidebarBackground />
                     <SidebarContent />
                 </div>
 
-                {/* Form Area - Only this re-renders */}
+                {/* Form Area */}
                 <div className="w-full lg:w-[55%] flex items-center justify-center p-8 sm:p-12 lg:p-16 bg-white relative z-10 overflow-y-auto custom-scrollbar">
                     <div className="w-full max-w-[440px] py-12">
                         <div className="flex gap-10 border-b border-slate-100 mb-10 relative">
