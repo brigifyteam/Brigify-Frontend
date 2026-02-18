@@ -1,9 +1,11 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
 
 const Hero = () => {
   return (
-    <section className="relative w-full bg-gradient-to-br from-gray-50 via-white to-blue-50/20 py-24 md:py-32 overflow-hidden">
+    <motion.section className="relative w-full bg-gradient-to-br from-gray-50 via-white to-blue-50/20 py-24 md:py-32 overflow-hidden" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={smooth}>
       {/* Subtle background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_85%,rgba(59,130,246,0.06)_0%,transparent_60%)] pointer-events-none" />
 
@@ -20,8 +22,8 @@ const Hero = () => {
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
               Bridging the gap between{" "}
-              <span className="text-[#1132d4]">learning</span> and{" "}
-              <span className="text-[#1132d4]">earning</span>.
+              <motion.span className="text-[#1132d4]" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ ...smooth, delay: 0.06 }}>learning</motion.span> and{" "}
+              <motion.span className="text-[#1132d4]" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ ...smooth, delay: 0.12 }}>earning</motion.span>.
             </h1>
 
             {/* Subheadline */}
@@ -68,7 +70,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

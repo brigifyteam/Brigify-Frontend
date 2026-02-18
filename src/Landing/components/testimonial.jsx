@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { smooth } from '../animations';
 
 const testimonials = [
   {
     id: 1,
     quote:
-      "Bridgifiy didn't just teach me how to code; it connected me with a mentor who helped me land a remote job in London within 3 months. It's a game changer.",
+      "Bridgify didn't just teach me how to code; it connected me with a mentor who helped me land a remote job in London within 3 months. It's a game changer.",
     author: 'Sarah Jenkins',
     role: 'Frontend Developer',
     company: '@FinTech',
@@ -27,7 +29,7 @@ const testimonials = [
   {
     id: 3,
     quote:
-      "As someone with zero tech background, I was scared to start freelancing. Bridgifiy gave me structure, confidence, real projects, and now I have steady clients.",
+      "As someone with zero tech background, I was scared to start freelancing. Bridgify gave me structure, confidence, real projects, and now I have steady clients.",
     author: 'Aisha Rahman',
     role: 'UI/UX Designer & Freelancer',
     company: 'Self-employed',
@@ -87,7 +89,7 @@ export default function TestimonialCarousel() {
             What Our Members Are Saying
           </h2>
           <p className="mt-5 text-xl text-gray-600 max-w-3xl mx-auto">
-            Real stories from people who transformed their careers with Bridgifiy
+            Real stories from people who transformed their careers with Bridgify
           </p>
         </div>
 
@@ -96,8 +98,16 @@ export default function TestimonialCarousel() {
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
         >
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-100/80 overflow-hidden">
-            <div className="p-8 md:p-14 lg:p-16">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={testimonial.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={smooth}
+              className="bg-white rounded-3xl shadow-xl border border-gray-100/80 overflow-hidden"
+            >
+              <div className="p-8 md:p-14 lg:p-16">
               {/* Stars */}
               <div className="flex justify-center mb-8">
                 {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
@@ -133,7 +143,8 @@ export default function TestimonialCarousel() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
+          </AnimatePresence>
 
           {/* Navigation arrows */}
           <button

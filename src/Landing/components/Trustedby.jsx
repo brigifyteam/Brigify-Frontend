@@ -1,6 +1,10 @@
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
+
 const TrustedBy = () => {
+  const partners = ['HexaTech', 'Pyramid', 'Infinite', 'Target', 'Energy'];
   return (
-    <section className="bg-white py-12">
+    <motion.section className="bg-white py-12" initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={smooth}>
       <div className="max-w-6xl mx-auto px-6 text-center">
 
         <p className="text-sm font-semibold text-gray-500 tracking-wider uppercase mb-8">
@@ -8,15 +12,15 @@ const TrustedBy = () => {
         </p>
 
         <div className="flex flex-wrap justify-center items-center gap-10 text-gray-400 font-semibold text-lg">
-          <span>HexaTech</span>
-          <span>Pyramid</span>
-          <span>Infinite</span>
-          <span>Target</span>
-          <span>Energy</span>
+          {partners.map((p) => (
+            <motion.span key={p} whileHover={{ scale: 1.04 }} transition={smooth} className="px-2 py-1 rounded-md">
+              {p}
+            </motion.span>
+          ))}
         </div>
 
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -1,15 +1,17 @@
 import React from 'react';
 import { Pencil, Rocket, Sparkles, GraduationCap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
 
 const JourneySection = () => {
   return (
-    <section className="py-20 md:py-28 bg-gray-50">
+    <motion.section className="py-20 md:py-28 bg-gray-50" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={smooth}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left: Audience Cards */}
           <div className="space-y-6 lg:space-y-8">
             {/* Freelancers */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <motion.div whileHover={{ y: -8, scale: 1.02 }} className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-start gap-6">
                 <Pencil className="h-8 w-8 text-teal-600 flex-shrink-0 mt-0.5" strokeWidth={2.2} />
                 <div>
@@ -19,10 +21,10 @@ const JourneySection = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Early Pros */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <motion.div whileHover={{ y: -8, scale: 1.02 }} className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-start gap-6">
                 <Rocket className="h-8 w-8 text-blue-600 flex-shrink-0 mt-0.5" strokeWidth={2.2} />
                 <div>
@@ -32,10 +34,10 @@ const JourneySection = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Students */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <motion.div whileHover={{ y: -8, scale: 1.02 }} className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-start gap-6">
                 <GraduationCap className="h-8 w-8 text-cyan-600 flex-shrink-0 mt-0.5" strokeWidth={2.2} />
                 <div>
@@ -45,10 +47,10 @@ const JourneySection = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Career Switchers - Highlighted card */}
-            <div className="bg-[#1132d4] rounded-2xl p-9 shadow-xl text-white relative overflow-hidden">
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-[#1132d4] rounded-2xl p-9 shadow-xl text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10 pointer-events-none" />
               <div className="flex items-start gap-6 relative z-10">
                 <Sparkles className="h-9 w-9 text-white flex-shrink-0 mt-0.5" strokeWidth={2.2} />
@@ -59,7 +61,7 @@ const JourneySection = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Right: Heading + Intro + Features + Link */}
@@ -119,7 +121,7 @@ const JourneySection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

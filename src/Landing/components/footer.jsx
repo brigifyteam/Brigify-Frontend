@@ -3,23 +3,20 @@ import { Twitter, Globe } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#fffff] text-gray-300">
+    <footer className="bg-white text-gray-700">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Brand & Description */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-3">
-                <img
-                  src="/logo.png"
-                  alt="Bridgify"
-                  className="h-9 w-9 object-contain rounded-md"
-                />
-                <span className="text-2xl font-bold tracking-tight text-[#1132d4]">
-                  Bridgify
-                </span>
-              </div>
-
+              <img
+                src="/logo.png"
+                alt="Bridgify"
+                className="h-9 w-9 object-contain rounded-md"
+              />
+              <span className="text-2xl font-bold tracking-tight text-[#1132d4]">
+                Bridgify
+              </span>
             </div>
 
             <p className="mt-6 text-gray-400 leading-relaxed">
@@ -103,7 +100,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-6">
             <div>
-              © {new Date().getFullYear()} Bridgifiy Inc. All rights reserved.
+              © {new Date().getFullYear()} Bridgify Inc. All rights reserved.
             </div>
 
             <div className="flex items-center gap-8">
