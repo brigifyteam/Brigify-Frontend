@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react'; // Assuming lucide-react is installed
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +11,7 @@ const Navbar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="w-full bg-white border-b border-gray-200 shadow-sm fixed top-0 z-50">
+    <motion.header className="w-full bg-white border-b border-gray-200 shadow-sm fixed top-0 z-50" initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={smooth}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         
         {/* Logo */}
@@ -72,7 +74,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 shadow-lg">
+        <motion.div className="md:hidden bg-white border-b border-gray-200 shadow-lg" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={smooth}>
           <div className="px-6 py-5 flex flex-col gap-6">
             <Link
               to="/features"
@@ -121,9 +123,9 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
-    </header>
+    </motion.header>
   );
 };
 

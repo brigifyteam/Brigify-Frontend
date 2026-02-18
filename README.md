@@ -47,4 +47,4 @@ The frontend is prepared to integrate with the following backend services:
 - **Frontend**: React.js with Vite
 - **Styling**: Tailwind CSS for modern, responsive UI design
 - **Icons**: Lucide React
-- **Animations**: Custom CSS animations for a premium feel
+- **Animations**: Custom CSS animations for a premium feel || framer motion

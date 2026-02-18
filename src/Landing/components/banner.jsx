@@ -1,8 +1,10 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
 
 const HeroBanner = () => {
   return (
-    <section className="relative bg-[#1132d4] text-white overflow-hidden">
+    <motion.section className="relative bg-[#1132d4] text-white overflow-hidden" initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={smooth}>
       {/* Optional subtle background pattern or overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(255,255,255,0.08)_0%,transparent_50%)] pointer-events-none" />
 
@@ -55,9 +57,9 @@ const HeroBanner = () => {
       </div>
 
       {/* Optional decorative elements */}
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl translate-x-1/4 -translate-y-1/4" />
-    </section>
+      <motion.div aria-hidden className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div aria-hidden className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl translate-x-1/4 -translate-y-1/4" animate={{ x: [0, 8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
+    </motion.section>
   );
 };
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { GraduationCap, UserRound, BriefcaseBusiness } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
 
 const HowItWorks = () => {
   const steps = [
@@ -27,7 +29,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-20 md:py-24 bg-white">
+    <motion.section className="py-20 md:py-24 bg-white" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={smooth}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
@@ -46,9 +48,13 @@ const HowItWorks = () => {
         {/* Steps */}
         <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-12">
           {steps.map((step) => (
-            <div
+            <motion.div
               key={step.id}
               className="group relative flex flex-col items-center text-center"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ ...smooth, delay: step.id * 0.05 }}
             >
               {/* Number badge */}
               <div className="absolute -top-5 left-1/2 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-[#1132d4] text-lg font-bold text-white shadow-lg">
@@ -62,11 +68,11 @@ const HowItWorks = () => {
 
               <h3 className="mt-6 text-xl font-semibold text-gray-900">{step.title}</h3>
               <p className="mt-4 text-base leading-relaxed text-gray-600">{step.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

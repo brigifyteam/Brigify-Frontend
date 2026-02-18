@@ -1,5 +1,7 @@
 import React from 'react';
 import { BookOpen, Video, Briefcase, ShieldCheck, Users, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { smooth } from '../animations';
 
 const EverythingYouNeed = () => {
   const features = [
@@ -42,7 +44,7 @@ const EverythingYouNeed = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-gray-50">
+    <motion.section className="py-20 md:py-28 bg-gray-50" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={smooth}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto">
@@ -56,10 +58,14 @@ const EverythingYouNeed = () => {
 
         {/* Feature Grid */}
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <div
+          {features.map((feature, idx) => (
+            <motion.div
               key={feature.title}
               className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ ...smooth, delay: idx * 0.04 }}
             >
               <div className="p-8 flex flex-col items-center text-center">
                 {/* Icon container */}
@@ -75,11 +81,11 @@ const EverythingYouNeed = () => {
                   {feature.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
