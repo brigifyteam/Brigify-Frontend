@@ -1,183 +1,182 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { smooth } from '../animations';
+import React from 'react';
+import { Star, Quote, CheckCircle } from 'lucide-react';
 
 const testimonials = [
   {
-    id: 1,
-    quote:
-      "Bridgify didn't just teach me how to code; it connected me with a mentor who helped me land a remote job in London within 3 months. It's a game changer.",
-    author: 'Sarah Jenkins',
-    role: 'Frontend Developer',
-    company: '@FinTech',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80',
+    name: "Aisha Ibrahim",
+    role: "Frontend Developer",
+    company: "Freelance",
+    location: "Lagos",
+    quote: "Bridgify turned my banking background into real tech income. After the skill assessment, I focused on React and landed a remote contract paying ₦180k/month within 10 weeks. The marketplace actually delivers matches!",
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200",
     rating: 5,
+    skills: ["React.js", "Tailwind", "Freelance"],
+    achievement: "First gig: ₦180k/mo"
   },
   {
-    id: 2,
-    quote:
-      "The personalized learning paths and 1:1 mentorship sessions were exactly what I needed to transition from marketing to product management. Got hired in 4 months!",
-    author: 'Michael Thompson',
-    role: 'Product Manager',
-    company: 'ScaleWave',
-    imageUrl:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80',
+    name: "David Okeke",
+    role: "Full-Stack Engineer",
+    company: "Fintech Startup",
+    location: "Abuja",
+    quote: "Fresh graduate with only basic HTML/CSS — employers ignored me. Bridgify gave structure, real projects, and verified certs. Built a strong portfolio, got 12+ invites, and accepted a full-time role.",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200",
     rating: 5,
+    skills: ["Node.js", "API", "Portfolio"],
+    achievement: "Hired in 11 weeks"
   },
   {
-    id: 3,
-    quote:
-      "As someone with zero tech background, I was scared to start freelancing. Bridgify gave me structure, confidence, real projects, and now I have steady clients.",
-    author: 'Aisha Rahman',
-    role: 'UI/UX Designer & Freelancer',
-    company: 'Self-employed',
-    imageUrl:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=986&q=80',
+    name: "Fatima Yusuf",
+    role: "Product Designer",
+    company: "Remote Client",
+    location: "Kano",
+    quote: "Balancing NYSC and learning was tough. Bridgify's flexible pace + mentorship worked perfectly. Earned certification, matched to a dollar-paying UI gig, now making $800+/month part-time.",
+    photo: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=200&h=200",
     rating: 5,
+    skills: ["Figma", "UI/UX", "USD Income"],
+    achievement: "Int'l Client in 82 days"
   },
   {
-    id: 4,
-    quote:
-      "The community hub is gold. I met collaborators from Nigeria, UK, and Canada — we built a portfolio project together that got me noticed by recruiters.",
-    author: 'David Adeyemi',
-    role: 'Full-Stack Developer',
-    company: 'TechNova Remote',
-    imageUrl:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80',
+    name: "Emeka Nwosu",
+    role: "Frontend Developer",
+    company: "Tech Company",
+    location: "Port Harcourt",
+    quote: "Self-taught but no credentials. Bridgify projects + certification changed that. Landed an internship that converted to full-time at ₦280k/month. My LinkedIn badge now attracts recruiters weekly.",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200&h=200",
     rating: 5,
-  },
-  {
-    id: 5,
-    quote:
-      "The freelance tools alone saved me hours every month — clean contracts, invoicing, and client matching. My income grew 3× after six months on the platform.",
-    author: 'Fatima Yusuf',
-    role: 'Digital Marketer & Freelancer',
-    company: 'Independent',
-    imageUrl:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=986&q=80',
-    rating: 5,
-  },
+    skills: ["Vue.js", "Git", "Career Growth"],
+    achievement: "Intern to Full-time"
+  }
 ];
 
-export default function TestimonialCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const interval = setInterval(nextSlide, 7000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const testimonial = testimonials[currentIndex];
-
+function TestimonialsSlider() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
-            What Our Members Are Saying
+    <section className="py-20 md:py-28 bg-white overflow-hidden relative">
+      
+      {/* 
+        Define CSS Animation inline to avoid external dependency issues.
+        This creates the smooth infinite scrolling effect.
+      */}
+      <style>{`
+        @keyframes infinite-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-100% / 2)); } /* Move by 50% since list is doubled */
+        }
+        .animate-scroll {
+          animation: infinite-scroll 40s linear infinite;
+          width: max-content;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+        
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <span className="text-indigo-600 font-bold tracking-wider uppercase text-xs sm:text-sm mb-3 block">
+            Real Stories, Real Results
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+            Success Stories from Graduates
           </h2>
-          <p className="mt-5 text-xl text-gray-600 max-w-3xl mx-auto">
-            Real stories from people who transformed their careers with Bridgify
+          <p className="mt-5 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            See how Nigerians are bridging the gap from learning to earning with Bridgify.
           </p>
         </div>
 
-        <div
-          className="relative max-w-5xl mx-auto"
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={smooth}
-              className="bg-white rounded-3xl shadow-xl border border-gray-100/80 overflow-hidden"
-            >
-              <div className="p-8 md:p-14 lg:p-16">
-              {/* Stars */}
-              <div className="flex justify-center mb-8">
-                {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
-                  <Star key={i} className="h-7 w-7 text-yellow-400 fill-yellow-400 mx-0.5" />
-                ))}
-              </div>
+        {/* Carousel Container */}
+        <div className="relative overflow-hidden group">
+          
+          {/* Gradient Masks (Fade to white on edges) */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-              {/* Quote */}
-              <blockquote className="text-center">
-                <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-900 leading-relaxed">
-                  “{testimonial.quote}”
-                </p>
-              </blockquote>
+          {/* Scrolling Track */}
+          <div className="flex gap-6 animate-scroll py-4 pl-4">
+            
+            {/* Render array twice to create seamless loop */}
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
+              <div
+                key={`${testimonial.name}-${index}`}
+                // Fixed width (w-[350px] or w-[400px]) prevents squashed text
+                className="w-[340px] md:w-[400px] flex-shrink-0 flex flex-col bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] border border-gray-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:border-indigo-100 transition-all duration-300 relative overflow-hidden"
+              >
+                {/* Decorative Background Quote Icon */}
+                <Quote className="absolute top-6 right-6 w-12 h-12 text-gray-50 -rotate-12 pointer-events-none" />
 
-              {/* Author info */}
-              <div className="mt-12 flex flex-col items-center">
-                <div className="relative mb-6">
-                  <img
-                    src={testimonial.imageUrl}
-                    alt={testimonial.author}
-                    className="h-20 w-20 rounded-full object-cover ring-4 ring-white shadow-xl"
-                  />
-                  <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1.5 border-2 border-white">
-                    <span className="block h-3 w-3" />
+                <div className="p-7 flex-grow flex flex-col relative z-10">
+                  {/* Stars */}
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+
+                  {/* Quote - limited to 4 lines to prevent overflow */}
+                  <blockquote className="text-base text-gray-700 leading-relaxed mb-6 line-clamp-4 flex-grow">
+                    "{testimonial.quote}"
+                  </blockquote>
+
+                  {/* Author Profile */}
+                  <div className="flex items-center gap-3 mt-auto">
+                    <img
+                      src={testimonial.photo}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-indigo-50"
+                    />
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm">{testimonial.name}</h4>
+                      <p className="text-xs text-gray-500 font-medium">
+                        {testimonial.role}
+                      </p>
+                      <p className="text-[10px] text-gray-400 mt-0.5">
+                        {testimonial.company} • {testimonial.location}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="text-center">
-                  <div className="text-xl font-semibold text-gray-900">{testimonial.author}</div>
-                  <div className="mt-1 text-gray-600 text-lg">
-                    {testimonial.role} • {testimonial.company}
+                {/* Card Footer */}
+                <div className="px-7 py-4 bg-gray-50/80 border-t border-gray-100 flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap gap-1.5">
+                    {testimonial.skills.slice(0, 2).map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-2 py-0.5 bg-white border border-gray-200 text-gray-600 text-[10px] rounded font-semibold uppercase tracking-wide"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-2 py-1 rounded border border-emerald-100/50">
+                    <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                    <p className="text-[10px] font-bold whitespace-nowrap">
+                      {testimonial.achievement}
+                    </p>
                   </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-          </AnimatePresence>
-
-          {/* Navigation arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 md:left-[-4rem] top-1/2 -translate-y-1/2 bg-white rounded-full p-4 shadow-lg hover:bg-gray-50 transition z-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="h-8 w-8 text-gray-700" />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 md:right-[-4rem] top-1/2 -translate-y-1/2 bg-white rounded-full p-4 shadow-lg hover:bg-gray-50 transition z-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="h-8 w-8 text-gray-700" />
-          </button>
-
-          {/* Dots */}
-          <div className="flex justify-center mt-10 space-x-3">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-3 rounded-full transition-all duration-300 ${
-                  idx === currentIndex ? 'bg-blue-600 w-10' : 'bg-gray-300 hover:bg-gray-400 w-3'
-                }`}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
             ))}
           </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-16 md:mt-20">
+          <p className="text-gray-600 mb-6 text-lg">
+            Your success story starts here — join hundreds already earning.
+          </p>
+          <a
+            href="#get-started"
+            className="inline-flex px-8 py-4 bg-[#1132d4] text-white font-semibold rounded-xl hover:bg-[#0d25a0] transition-transform hover:-translate-y-1 shadow-md hover:shadow-lg"
+          >
+            Start Your Journey Now
+          </a>
         </div>
       </div>
     </section>
   );
 }
+
+export default TestimonialsSlider;
