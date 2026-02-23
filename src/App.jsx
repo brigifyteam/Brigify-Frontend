@@ -10,8 +10,8 @@ import Jobs from "./Landing/pages/jobs";
 import ExploreSkills from "./Landing/pages/exploreskills";
 
 // Make sure to import these components (Update paths if necessary)
-import DashboardLayout from "./pages/DashboardLayout"; 
-import LearningDashboard from "./pages/LearningDashboard"; 
+import DashboardLayout from "./components/dashboard/layout/DashboardLayout"; 
+import LearningDashboard from "./pages/dashboard/LearningDashboard"; 
 
 function App() {
   return (
