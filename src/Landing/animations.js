@@ -1,7 +1,7 @@
 export const smooth = {
-  type: 'tween',
+ // type: 'tween',
   duration: 0.6,
-  ease: [0.22, 0.8, 0.36, 1],
+  //ease: [0.22, 0.8, 0.36, 1],
 };
 
 export const container = {
@@ -24,7 +24,7 @@ export const item = {
     transition: {
       type: 'tween',
       duration: 0.6,
-      ease: [0.22, 0.8, 0.36, 1],
+    //  ease: [0.22, 0.8, 0.36, 1],
     },
   },
 };
