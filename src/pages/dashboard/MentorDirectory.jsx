@@ -399,9 +399,39 @@ const MentorDirectory = () => {
                                 <span>Load more mentors</span>
                             </button>
                         </div>
+
+                        {/* Desktop Pagination */}
+                        <div className="hidden lg:flex items-center justify-center gap-2 mt-12">
+                            <button className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-white hover:border-slate-900 transition-all">
+                                <ChevronLeft size={18} />
+                            </button>
+                            <button className="w-10 h-10 rounded-xl bg-blue-600 text-white font-extrabold text-[13px] shadow-lg shadow-blue-500/20">1</button>
+                            <button className="w-10 h-10 rounded-xl border border-slate-200 text-slate-500 font-bold text-[13px] hover:bg-white hover:border-slate-900 transition-all">2</button>
+                            <button className="w-10 h-10 rounded-xl border border-slate-200 text-slate-500 font-bold text-[13px] hover:bg-white hover:border-slate-900 transition-all">3</button>
+                            <span className="w-10 h-10 flex items-center justify-center text-slate-300 font-bold">...</span>
+                            <button className="w-10 h-10 rounded-xl border border-slate-200 text-slate-500 font-bold text-[13px] hover:bg-white hover:border-slate-900 transition-all">42</button>
+                            <button className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-white hover:border-slate-900 transition-all">
+                                <ChevronRight size={18} />
+                            </button>
+                        </div>
                     </div>
                 </main>
             </div>
+
+            {/* Fixed Footer - Matches Image 2 */}
+            <footer className="hidden lg:flex shrink-0 bg-white border-t border-slate-200 h-16 items-center px-10 z-50">
+                <div className="flex items-center justify-between w-full mx-auto max-w-[1400px]">
+                    <div className="flex items-center gap-3">
+                        <img src="/logo.png" alt="Bridgify" className="w-6 h-6 object-contain grayscale opacity-40 rounded-md" />
+                        <span className="text-[13px] font-bold text-slate-300 tracking-tight">© 2024 Bridgify Inc.</span>
+                    </div>
+                    <div className="flex items-center gap-12">
+                        {['Privacy Policy', 'Terms of Service', 'Help Center'].map(l => (
+                            <a key={l} href="#" className="text-[13px] font-bold text-slate-400 hover:text-blue-600 transition-colors">{l}</a>
+                        ))}
+                    </div>
+                </div>
+            </footer>
 
             {/* Mobile Filter Sheet */}
             <AnimatePresence>
