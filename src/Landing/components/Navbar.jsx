@@ -28,8 +28,8 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-10 text-gray-700 font-medium">
-          <Link to="/features" className="hover:text-[#1132d4] transition-colors">
-            Features
+          <Link to="/explore-skills" className="hover:text-[#1132d4] transition-colors">
+            Explore Skills
           </Link>
           <Link to="/how-it-works" className="hover:text-[#1132d4] transition-colors">
             How It Works
@@ -77,11 +77,11 @@ const Navbar = () => {
         <motion.div className="md:hidden bg-white border-b border-gray-200 shadow-lg" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={smooth}>
           <div className="px-6 py-5 flex flex-col gap-6">
             <Link
-              to="/features"
+              to="/explore-skills"
               className="text-gray-800 font-medium hover:text-[#1132d4] transition-colors"
               onClick={closeMenu}
             >
-              Features
+              Explore Skills
             </Link>
             <Link
               to="/how-it-works"
