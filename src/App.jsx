@@ -12,6 +12,7 @@ import ExploreSkills from "./Landing/pages/exploreskills";
 // Make sure to import these components (Update paths if necessary)
 import DashboardLayout from "./components/dashboard/layout/DashboardLayout"; 
 import LearningDashboard from "./pages/dashboard/LearningDashboard"; 
+import MentorDirectory from "./pages/dashboard/MentorDirectory";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route path="learning" element={<LearningDashboard />} />
       </Route>
+
+      {/* Pages without the main dashboard sidebar */}
+      <Route path="/mentorship" element={<MentorDirectory />} />
 
     </Routes>
   );

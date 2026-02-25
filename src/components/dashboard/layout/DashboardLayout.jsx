@@ -8,8 +8,8 @@ const DashboardLayout = () => {
             <DashboardSidebar />
 
             {/* Main Content Area */}
-            <main className="flex-1 ml-64">
-                <div className="max-w-6xl mx-auto px-10 py-12 pb-20">
+            <main className="flex-1 lg:ml-64">
+                <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-8 lg:py-12 pb-32 lg:pb-20">
                     <Outlet />
                 </div>
             </main>

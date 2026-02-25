@@ -15,18 +15,18 @@ const DashboardSidebar = () => {
     const navItems = [
         { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
         { name: 'My Learning', icon: GraduationCap, path: '/dashboard/learning' },
-        { name: 'Mentorship', icon: Users, path: '/dashboard/mentorship' },
+        { name: 'Mentorship', icon: Users, path: '/mentorship' },
         { name: 'Opportunities', icon: Briefcase, path: '/dashboard/opportunities' },
         { name: 'Analytics', icon: BarChart2, path: '/dashboard/analytics' },
     ];
 
     return (
-        <aside className="w-64 h-screen fixed left-0 top-0 bg-white border-r border-gray-100 flex flex-col justify-between py-6 z-10">
+        <aside className="hidden lg:flex w-64 h-screen fixed left-0 top-0 bg-white border-r border-gray-100 flex-col justify-between py-6 z-10">
             <div>
                 {/* Logo */}
                 <div className="flex items-center gap-2 px-6 mb-8">
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                    
+
                         <div className="w-4 h-4 border-2 border-white rounded-sm relative">
                             <div className="absolute w-4 h-4 border-2 border-white top-1 left-1 rounded-sm mix-blend-overlay"></div>
                         </div>
@@ -48,8 +48,8 @@ const DashboardSidebar = () => {
                                 key={item.name}
                                 to={item.path}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${isActive
-                                        ? 'bg-blue-50 text-blue-600 font-semibold'
-                                        : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium'
+                                    ? 'bg-blue-50 text-blue-600 font-semibold'
+                                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium'
                                     }`}
                             >
                                 <Icon size={20} className={isActive ? 'text-blue-600' : 'text-slate-400'} />
