@@ -25,12 +25,7 @@ const DashboardSidebar = () => {
             <div>
                 {/* Logo */}
                 <div className="flex items-center gap-2 px-6 mb-8">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-
-                        <div className="w-4 h-4 border-2 border-white rounded-sm relative">
-                            <div className="absolute w-4 h-4 border-2 border-white top-1 left-1 rounded-sm mix-blend-overlay"></div>
-                        </div>
-                    </div>
+                    <img src="/logo.png" alt="Bridgify" className="h-8 w-8 object-contain rounded-md" />
                     <div>
                         <span className="text-xl font-bold text-slate-900 leading-none block">Bridgify</span>
                         <span className="text-[10px] text-slate-500 font-medium tracking-wide">Career Platform</span>

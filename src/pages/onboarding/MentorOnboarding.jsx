@@ -56,9 +56,7 @@ const MentorOnboarding = () => {
             {/* Mobile Header / Step Indicator */}
             <div className="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-sm z-30 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                        <span className="transform -rotate-12">∞</span>
-                    </div>
+                    <img src="/logo.png" alt="Bridgify" className="h-8 w-8 object-contain rounded-md" />
                     <span className="text-xl font-bold text-slate-900">Bridgify</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -84,7 +82,7 @@ const MentorOnboarding = () => {
                 </div>
 
                 <motion.div
-                    key={currentStep} 
+                    key={currentStep}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}

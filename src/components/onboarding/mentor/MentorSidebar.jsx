@@ -12,9 +12,7 @@ const MentorSidebar = ({ currentStep = 1 }) => {
             <div>
                 {/* Logo */}
                 <div className="flex items-center gap-2 mb-12">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                        <span className="transform -rotate-12">∞</span>
-                    </div>
+                    <img src="/logo.png" alt="Bridgify" className="h-8 w-8 object-contain rounded-md" />
                     <span className="text-xl font-bold text-slate-900">Bridgify</span>
                 </div>
 
