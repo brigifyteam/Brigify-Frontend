@@ -14,10 +14,9 @@ const DashboardSidebar = () => {
 
     const navItems = [
         { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-        { name: 'My Learning', icon: GraduationCap, path: '/dashboard/learning' },
-        { name: 'Mentorship', icon: Users, path: '/mentorship' },
-        { name: 'Opportunities', icon: Briefcase, path: '/dashboard/opportunities' },
-        { name: 'Analytics', icon: BarChart2, path: '/dashboard/analytics' },
+        { name: 'Learn', icon: GraduationCap, path: '/dashboard/learn' },
+        { name: 'Connect', icon: Users, path: '/dashboard/connect' },
+        { name: 'Jobs', icon: Briefcase, path: '/dashboard/jobs' },
     ];
 
     return (
@@ -66,13 +65,13 @@ const DashboardSidebar = () => {
                 </Link>
 
                 {/* User Profile Footer */}
-                <div className="flex items-center gap-3 px-4 py-3 border border-gray-100 rounded-2xl mx-1 bg-white shadow-sm">
-                    <div className="w-9 h-9 rounded-full bg-orange-100 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="flex items-center gap-3 px-4 py-3 border border-gray-100 rounded-2xl mx-1 bg-gray-50/50 shadow-sm mt-8">
+                    <div className="w-10 h-10 rounded-full bg-slate-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col min-w-0">
                         <span className="text-sm font-bold text-slate-900 truncate">Alex Morgan</span>
-                        <span className="text-xs text-slate-500 truncate">Pro Member</span>
+                        <span className="text-xs text-slate-500 truncate">Student Account</span>
                     </div>
                 </div>
             </div>
