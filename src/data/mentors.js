@@ -116,7 +116,7 @@ export const MENTORS = [
             { role: 'Senior Designer', company: 'Spotify', location: 'Stockholm, SE', period: '2017 - 2021', description: 'Redesigned the mobile search and discovery experience.' }
         ],
         menteeReviews: [
-            { name: 'Sophie Martin', role: 'Junior Designer', content: '"Elena\'s feedback is always constructive and inspiring.She changed the way I look at design systems."', rating: 5, avatar: 'SM' }
+            { name: 'Sophie Martin', role: 'Junior Designer', content: '"Elena\'s feedback is always constructive and inspiring. She changed the way I look at design systems."', rating: 5, avatar: 'SM' }
         ],
         location: 'London, UK',
         localTime: '5:34 PM',
@@ -145,23 +145,310 @@ export const MENTORS = [
         experience: 'Senior (8+ years)',
         popularTags: ['Growth'],
         aboutMe: "I've scaled some of the world's fastest-growing fintech apps. I focus on unit economics and sustainable growth loops.",
-        stats: [{ label: 'Years Exp', value: '12+' }, { label: 'Growth', value: '400%' }, { label: 'Mentees', value: '45' }],
-        expertiseGroups: [{ category: 'MARKETING', skills: ['Growth Hacking', 'SEO', 'Performance Marketing'], color: 'blue' }],
-        workExperience: [{ role: 'VP Growth', company: 'Revolut', location: 'London, UK', period: '2019 - Present', description: 'Scaling user base from 1M to 20M.' }],
+        stats: [
+            { label: 'Years Exp', value: '12+' },
+            { label: 'Growth', value: '400%' },
+            { label: 'Mentees', value: '45' }
+        ],
+        expertiseGroups: [
+            { category: 'MARKETING', skills: ['Growth Hacking', 'SEO', 'Performance Marketing'], color: 'blue' },
+            { category: 'BUSINESS', skills: ['Unit Economics', 'Product-Led Growth', 'Go-to-Market'], color: 'green' }
+        ],
+        workExperience: [
+            { role: 'VP Growth', company: 'Revolut', location: 'London, UK', period: '2019 - Present', description: 'Scaling user base from 1M to 20M across Europe and LATAM.' },
+            { role: 'Head of Performance', company: 'Deliveroo', location: 'London, UK', period: '2016 - 2019', description: 'Managed $50M annual marketing budget.' }
+        ],
+        menteeReviews: [
+            { name: 'Ryan Park', role: 'Growth Lead', content: '"David cut through the noise and showed me exactly how to scale my acquisition channels."', rating: 5, avatar: 'RP' }
+        ],
         location: 'London, UK',
         localTime: '5:15 PM',
         languages: 'English',
         languageLevel: 'Fluent',
         education: 'Oxford University',
         educationDetail: 'MSc in Finance',
-        nextAvailability: [{ day: 'Monday', time: '9:00 AM', active: true }]
+        nextAvailability: [
+            { day: 'Monday', time: '9:00 AM', active: true }
+        ]
     },
-    { id: 5, name: 'Aisha Khan', role: 'ML Lead at DeepMind', rating: 5.0, reviews: 210, hourlyRate: 200, image: 'https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=1972&auto=format&fit=crop', skills: ['DEEP LEARNING', 'AI ETHICS'], description: 'Pioneering researcher in transformer architectures.', status: 'online', expertise: 'Data Science', industry: 'AI/ML', experience: 'Senior (8+ years)', popularTags: ['Python', 'AI Ethics'], aboutMe: "I lead machine learning research at DeepMind, focusing on the ethical implications of large-scale AI systems.", stats: [{ label: 'Papers', value: '50+' }, { label: 'Patents', value: '12' }, { label: 'Years', value: '8' }], expertiseGroups: [{ category: 'AI RESEARCH', skills: ['PyTorch', 'TensorFlow', 'NLP'], color: 'blue' }], workExperience: [{ role: 'ML Lead', company: 'DeepMind', location: 'London, UK', period: '2018 - Present', description: 'Leading research on safety and ethics.' }], location: 'London, UK', localTime: '5:15 PM', languages: 'English, Arabic', education: 'University of Cambridge', educationDetail: 'PhD in Machine Learning', nextAvailability: [{ day: 'Tuesday', time: '10:00 AM', active: true }] },
-    { id: 6, name: 'Jordan Smith', role: 'Data Director at Netflix', rating: 4.7, reviews: 65, hourlyRate: 180, image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop', skills: ['BIG DATA', 'ANALYTICS'], description: 'Data-driven storyteller helping teams leverage behavioral analytics.', status: 'online', expertise: 'Data Science', industry: 'AI/ML', experience: 'Senior (8+ years)', popularTags: ['Python', 'Big Data'], aboutMe: "At Netflix, I help define how we use data to drive subscriber growth and content production.", stats: [{ label: 'Years Exp', value: '15' }, { label: 'Data', value: 'PB+' }], expertiseGroups: [{ category: 'DATA SCIENCE', skills: ['Big Data', 'Spark', 'SQL'], color: 'blue' }], workExperience: [{ role: 'Data Director', company: 'Netflix', location: 'Los Gatos, CA', period: '2017 - Present', description: 'Managing global data teams.' }], location: 'Los Gatos, USA', localTime: '9:15 AM', languages: 'English', education: 'UC Berkeley', educationDetail: 'MS in Data Science', nextAvailability: [{ day: 'Wed', time: '2:00 PM', active: true }] },
-    { id: 7, name: 'Sophia Miller', role: 'Product Analyst at Amazon', rating: 4.6, reviews: 45, hourlyRate: 90, image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop', skills: ['DATA ANALYTICS', 'SQL'], description: 'Passionate about translating data into actionable insights for the world\'s largest e-commerce platform.', status: 'offline', expertise: 'Product Management', industry: 'E-commerce', experience: 'Mid-level (3-7 years)', popularTags: ['Strategy'], aboutMe: "I help Amazon sellers optimize their pricing and inventory through advanced data models.", stats: [{ label: 'Years Exp', value: '5' }, { label: 'Reports', value: '200+' }], expertiseGroups: [{ category: 'ANALYTICS', skills: ['SQL', 'Tableau', 'Excel'], color: 'blue' }], workExperience: [{ role: 'Product Analyst', company: 'Amazon', location: 'Seattle, WA', period: '2019 - Present', description: 'Analyzing supply chain efficiency.' }], location: 'Seattle, USA', localTime: '9:15 AM', languages: 'English', education: 'University of Washington', educationDetail: 'BA in Economics', nextAvailability: [{ day: 'Fri', time: '1:00 PM', active: true }] },
-    { id: 8, name: 'Lucas Wright', role: 'UX Researcher at Figma', rating: 4.9, reviews: 112, hourlyRate: 130, image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop', skills: ['USER TESTING', 'PROTOTYPING'], description: 'Deep dive into user behavior for the design industry\'s most popular collaboration tool.', status: 'online', expertise: 'UX Design', industry: 'Design', experience: 'Mid-level (3-7 years)', popularTags: ['Strategy'], aboutMe: "I specialize in qualitative research methods that uncover deep user needs.", stats: [{ label: 'Tests', value: '500+' }, { label: 'Insights', value: '50+' }], expertiseGroups: [{ category: 'UX RESEARCH', skills: ['Usability Testing', 'Contextual Inquiry'], color: 'blue' }], workExperience: [{ role: 'UX Researcher', company: 'Figma', location: 'San Francisco, CA', period: '2020 - Present', description: 'Leading research for the FigJam product.' }], location: 'San Francisco, USA', localTime: '9:15 AM', languages: 'English', education: 'NYU', educationDetail: 'MA in Human-Computer Interaction', nextAvailability: [{ day: 'Mon', time: '11:00 AM', active: true }] },
-    { id: 9, name: 'Olivia Gao', role: 'Frontend Engineer at Vercel', rating: 5.0, reviews: 30, hourlyRate: 110, image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1974&auto=format&fit=crop', skills: ['REACT', 'NEXT.JS'], description: 'Frontend specialist focused on performance and developer experience.', status: 'online', expertise: 'Software Engineering', industry: 'Edtech', experience: 'Junior (0-2 years)', popularTags: ['Python'], aboutMe: "I build fast, accessible web applications using the latest web technologies.", stats: [{ label: 'Stars', value: '2k+' }, { label: 'PRs', value: '150+' }], expertiseGroups: [{ category: 'FRONTEND', skills: ['React', 'Next.js', 'Tailwind'], color: 'blue' }], workExperience: [{ role: 'Frontend Engineer', company: 'Vercel', location: 'Remote', period: '2022 - Present', description: 'Working on the Next.js core team.' }], location: 'Remote', localTime: '12:00 PM', languages: 'English, Mandarin', education: 'Tsinghua University', educationDetail: 'BS in Computer Science', nextAvailability: [{ day: 'Wed', time: '4:00 PM', active: true }] },
-    { id: 10, name: 'James Wilson', role: 'Architect at Microsoft', rating: 4.8, reviews: 140, hourlyRate: 160, image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop', skills: ['CYBERSECURITY', 'CLOUD'], description: 'Protecting cloud infrastructure at scale.', status: 'online', expertise: 'Software Engineering', industry: 'Fintech', experience: 'Senior (8+ years)', popularTags: ['Architecture'], aboutMe: "I design secure, distributed cloud systems for enterprise clients.", stats: [{ label: 'Cert', value: '15+' }, { label: 'Years', value: '12' }], expertiseGroups: [{ category: 'SECURITY', skills: ['Encryption', 'Identity Management'], color: 'blue' }], workExperience: [{ role: 'Security Architect', company: 'Microsoft', location: 'Redmond, WA', period: '2016 - Present', description: 'Architecting Azure security features.' }], location: 'Redmond, USA', localTime: '9:15 AM', languages: 'English', education: 'Georgia Tech', educationDetail: 'MS in Cybersecurity', nextAvailability: [{ day: 'Thu', time: '9:00 AM', active: true }] },
-    { id: 11, name: 'Emma Larson', role: 'Marketing Lead at Shopify', rating: 4.7, reviews: 55, hourlyRate: 120, image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop', skills: ['SEO', 'CONTENT'], description: 'Helping e-commerce brands find their voice and reach their customers.', status: 'online', expertise: 'Marketing', industry: 'E-commerce', experience: 'Mid-level (3-7 years)', popularTags: ['SaaS Scaling'], aboutMe: "I build content strategies that drive organic growth for millions of Shopify merchants.", stats: [{ label: 'ROI', value: '10x' }, { label: 'Views', value: '5M+' }], expertiseGroups: [{ category: 'MARKETING', skills: ['SEO', 'Content Strategy'], color: 'blue' }], workExperience: [{ role: 'Marketing Lead', company: 'Shopify', location: 'Ottawa, CA', period: '2020 - Present', description: 'Managing content for the merchant growth team.' }], location: 'Ottawa, Canada', localTime: '12:15 PM', languages: 'English, French', education: 'McGill University', educationDetail: 'BCom in Marketing', nextAvailability: [{ day: 'Tue', time: '3:00 PM', active: true }] },
-    { id: 12, name: 'Daniel Kim', role: 'Fullstack at Robinhood', rating: 4.9, reviews: 88, hourlyRate: 140, image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop', skills: ['NODE.JS', 'TYPESCRIPT'], description: 'Building the future of democratic finance.', status: 'online', expertise: 'Software Engineering', industry: 'Fintech', experience: 'Mid-level (3-7 years)', popularTags: ['Architecture'], aboutMe: "I'm a fullstack engineer passionate about fintech and building great user experiences.", stats: [{ label: 'Years Exp', value: '7' }, { label: 'Commits', value: '1k+' }], expertiseGroups: [{ category: 'FULLSTACK', skills: ['Node.js', 'React', 'PostgreSQL'], color: 'blue' }], workExperience: [{ role: 'Fullstack Dev', company: 'Robinhood', location: 'Menlo Park, CA', period: '2021 - Present', description: 'Working on core trading features.' }], location: 'Menlo Park, USA', localTime: '9:15 AM', languages: 'English, Korean', education: 'University of Michigan', educationDetail: 'BS in Comp Sci', nextAvailability: [{ day: 'Mon', time: '10:00 AM', active: true }] }
+    {
+        id: 5,
+        name: 'Aisha Khan',
+        role: 'ML Lead at DeepMind',
+        rating: 5.0,
+        reviews: 210,
+        hourlyRate: 200,
+        image: 'https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=1972&auto=format&fit=crop',
+        skills: ['DEEP LEARNING', 'AI ETHICS'],
+        description: 'Pioneering researcher in transformer architectures.',
+        status: 'online',
+        expertise: 'Data Science',
+        industry: 'AI/ML',
+        experience: 'Senior (8+ years)',
+        popularTags: ['Python', 'AI Ethics'],
+        aboutMe: "I lead machine learning research at DeepMind, focusing on the ethical implications of large-scale AI systems and transformer efficiency.",
+        stats: [
+            { label: 'Papers', value: '50+' },
+            { label: 'Patents', value: '12' },
+            { label: 'Years', value: '8' }
+        ],
+        expertiseGroups: [
+            { category: 'AI RESEARCH', skills: ['PyTorch', 'TensorFlow', 'NLP', 'Computer Vision'], color: 'blue' },
+            { category: 'ETHICS', skills: ['Algorithm Bias', 'Explainable AI', 'Safety'], color: 'green' }
+        ],
+        workExperience: [
+            { role: 'ML Lead', company: 'DeepMind', location: 'London, UK', period: '2018 - Present', description: 'Leading research on safety and technical ethics.' },
+            { role: 'Research Admin', company: 'OpenAI', location: 'San Francisco, CA', period: '2016 - 2018', description: 'Early researcher on generative models.' }
+        ],
+        menteeReviews: [
+            { name: 'Leo Chen', role: 'PhD Student', content: '"Aisha\'s depth of knowledge in ML is unparalleled. Her guidance on my thesis was a game-changer."', rating: 5, avatar: 'LC' }
+        ],
+        location: 'London, UK',
+        localTime: '5:15 PM',
+        languages: 'English, Arabic',
+        languageLevel: 'Native',
+        education: 'University of Cambridge',
+        educationDetail: 'PhD in Machine Learning',
+        nextAvailability: [{ day: 'Tuesday', time: '10:00 AM', active: true }]
+    },
+    {
+        id: 6,
+        name: 'Jordan Smith',
+        role: 'Data Director at Netflix',
+        rating: 4.7,
+        reviews: 65,
+        hourlyRate: 180,
+        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
+        skills: ['BIG DATA', 'ANALYTICS'],
+        description: 'Data-driven storyteller helping teams leverage behavioral analytics.',
+        status: 'online',
+        expertise: 'Data Science',
+        industry: 'AI/ML',
+        experience: 'Senior (8+ years)',
+        popularTags: ['Python', 'Big Data'],
+        aboutMe: "At Netflix, I help define how we use data to drive subscriber growth and content production algorithms.",
+        stats: [
+            { label: 'Years Exp', value: '15' },
+            { label: 'Data', value: 'PB+' },
+            { label: 'Teams Led', value: '5' }
+        ],
+        expertiseGroups: [
+            { category: 'DATA SCIENCE', skills: ['Big Data', 'Spark', 'SQL', 'A/B Testing'], color: 'blue' },
+            { category: 'LEADERSHIP', skills: ['Strategic Planning', 'Stakeholder Management'], color: 'green' }
+        ],
+        workExperience: [
+            { role: 'Data Director', company: 'Netflix', location: 'Los Gatos, CA', period: '2017 - Present', description: 'Managing global data teams for personalization.' }
+        ],
+        location: 'Los Gatos, USA',
+        localTime: '9:15 AM',
+        languages: 'English',
+        languageLevel: 'Fluent',
+        education: 'UC Berkeley',
+        educationDetail: 'MS in Data Science',
+        nextAvailability: [{ day: 'Wed', time: '2:00 PM', active: true }]
+    },
+    {
+        id: 7,
+        name: 'Sophia Miller',
+        role: 'Product Analyst at Amazon',
+        rating: 4.6,
+        reviews: 45,
+        hourlyRate: 90,
+        image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop',
+        skills: ['DATA ANALYTICS', 'SQL'],
+        description: 'Passionate about translating data into actionable insights for the world\'s largest e-commerce platform.',
+        status: 'offline',
+        expertise: 'Product Management',
+        industry: 'E-commerce',
+        experience: 'Mid-level (3-7 years)',
+        popularTags: ['Strategy'],
+        aboutMe: "I help Amazon sellers optimize their pricing and inventory through advanced data models and supply chain analysis.",
+        stats: [
+            { label: 'Years Exp', value: '5' },
+            { label: 'Reports', value: '200+' }
+        ],
+        expertiseGroups: [
+            { category: 'ANALYTICS', skills: ['SQL', 'Tableau', 'Excel', 'Python'], color: 'blue' }
+        ],
+        workExperience: [
+            { role: 'Product Analyst', company: 'Amazon', location: 'Seattle, WA', period: '2019 - Present', description: 'Analyzing supply chain efficiency for FBA.' }
+        ],
+        location: 'Seattle, USA',
+        localTime: '9:15 AM',
+        languages: 'English',
+        languageLevel: 'Native',
+        education: 'University of Washington',
+        educationDetail: 'BA in Economics',
+        nextAvailability: [{ day: 'Fri', time: '1:00 PM', active: true }]
+    },
+    {
+        id: 8,
+        name: 'Lucas Wright',
+        role: 'UX Researcher at Figma',
+        rating: 4.9,
+        reviews: 112,
+        hourlyRate: 130,
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop',
+        skills: ['USER TESTING', 'PROTOTYPING'],
+        description: 'Deep dive into user behavior for the design industry\'s most popular collaboration tool.',
+        status: 'online',
+        expertise: 'UX Design',
+        industry: 'Design',
+        experience: 'Mid-level (3-7 years)',
+        popularTags: ['Strategy'],
+        aboutMe: "I specialize in qualitative research methods that uncover deep user needs and translate them into product features for Figma.",
+        stats: [
+            { label: 'Tests', value: '500+' },
+            { label: 'Insights', value: '50+' }
+        ],
+        expertiseGroups: [
+            { category: 'UX RESEARCH', skills: ['Usability Testing', 'Contextual Inquiry', 'User Personas'], color: 'blue' }
+        ],
+        workExperience: [
+            { role: 'UX Researcher', company: 'Figma', location: 'San Francisco, CA', period: '2020 - Present', description: 'Leading research for the FigJam product experience.' }
+        ],
+        location: 'San Francisco, USA',
+        localTime: '9:15 AM',
+        languages: 'English',
+        languageLevel: 'Fluent',
+        education: 'NYU',
+        educationDetail: 'MA in Human-Computer Interaction',
+        nextAvailability: [{ day: 'Mon', time: '11:00 AM', active: true }]
+    },
+    {
+        id: 9,
+        name: 'Olivia Gao',
+        role: 'Frontend Engineer at Vercel',
+        rating: 5.0,
+        reviews: 30,
+        hourlyRate: 110,
+        image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1974&auto=format&fit=crop',
+        skills: ['REACT', 'NEXT.JS'],
+        description: 'Frontend specialist focused on performance and developer experience.',
+        status: 'online',
+        expertise: 'Software Engineering',
+        industry: 'Edtech',
+        experience: 'Junior (0-2 years)',
+        popularTags: ['Python'],
+        aboutMe: "I build fast, accessible web applications using the latest web technologies and contribute to Next.js core.",
+        stats: [
+            { label: 'Stars', value: '2k+' },
+            { label: 'PRs', value: '150+' }
+        ],
+        expertiseGroups: [
+            { category: 'FRONTEND', skills: ['React', 'Next.js', 'Tailwind', 'TypeScript'], color: 'blue' }
+        ],
+        workExperience: [
+            { role: 'Frontend Engineer', company: 'Vercel', location: 'Remote', period: '2022 - Present', description: 'Working on the Next.js core team on performance metrics.' }
+        ],
+        location: 'Remote',
+        localTime: '12:00 PM',
+        languages: 'English, Mandarin',
+        languageLevel: 'Fluent',
+        education: 'Tsinghua University',
+        educationDetail: 'BS in Computer Science',
+        nextAvailability: [{ day: 'Wed', time: '4:00 PM', active: true }]
+    },
+    {
+        id: 10,
+        name: 'James Wilson',
+        role: 'Architect at Microsoft',
+        rating: 4.8,
+        reviews: 140,
+        hourlyRate: 160,
+        image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop',
+        skills: ['CYBERSECURITY', 'CLOUD'],
+        description: 'Protecting cloud infrastructure at scale.',
+        status: 'online',
+        expertise: 'Software Engineering',
+        industry: 'Fintech',
+        experience: 'Senior (8+ years)',
+        popularTags: ['Architecture'],
+        aboutMe: "I design secure, distributed cloud systems for enterprise clients and lead security audits at Microsoft.",
+        stats: [
+            { label: 'Cert', value: '15+' },
+            { label: 'Years', value: '12' }
+        ],
+        expertiseGroups: [
+            { category: 'SECURITY', skills: ['Encryption', 'Identity Management', 'Zero Trust Architecture'], color: 'blue' }
+        ],
+        workExperience: [
+            { role: 'Security Architect', company: 'Microsoft', location: 'Redmond, WA', period: '2016 - Present', description: 'Architecting Azure security and identity features.' }
+        ],
+        location: 'Redmond, USA',
+        localTime: '9:15 AM',
+        languages: 'English',
+        languageLevel: 'Native',
+        education: 'Georgia Tech',
+        educationDetail: 'MS in Cybersecurity',
+        nextAvailability: [{ day: 'Thu', time: '9:00 AM', active: true }]
+    },
+    {
+        id: 11,
+        name: 'Emma Larson',
+        role: 'Marketing Lead at Shopify',
+        rating: 4.7,
+        reviews: 55,
+        hourlyRate: 120,
+        image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop',
+        skills: ['SEO', 'CONTENT'],
+        description: 'Helping e-commerce brands find their voice and reach their customers.',
+        status: 'online',
+        expertise: 'Marketing',
+        industry: 'E-commerce',
+        experience: 'Mid-level (3-7 years)',
+        popularTags: ['SaaS Scaling'],
+        aboutMe: "I build content strategies that drive organic growth for millions of Shopify merchants globally.",
+        stats: [
+            { label: 'ROI', value: '10x' },
+            { label: 'Views', value: '5M+' }
+        ],
+        expertiseGroups: [
+            { category: 'MARKETING', skills: ['SEO', 'Content Strategy', 'Brand Identity'], color: 'blue' }
+        ],
+        workExperience: [
+            { role: 'Marketing Lead', company: 'Shopify', location: 'Ottawa, CA', period: '2020 - Present', description: 'Managing merchant growth content strategy.' }
+        ],
+        location: 'Ottawa, Canada',
+        localTime: '12:15 PM',
+        languages: 'English, French',
+        languageLevel: 'Fluent',
+        education: 'McGill University',
+        educationDetail: 'BCom in Marketing',
+        nextAvailability: [{ day: 'Tue', time: '3:00 PM', active: true }]
+    },
+    {
+        id: 12,
+        name: 'Daniel Kim',
+        role: 'Fullstack at Robinhood',
+        rating: 4.9,
+        reviews: 88,
+        hourlyRate: 140,
+        image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop',
+        skills: ['NODE.JS', 'TYPESCRIPT'],
+        description: 'Building the future of democratic finance.',
+        status: 'online',
+        expertise: 'Software Engineering',
+        industry: 'Fintech',
+        experience: 'Mid-level (3-7 years)',
+        popularTags: ['Architecture'],
+        aboutMe: "I'm a fullstack engineer passionate about fintech and building high-availability trading systems.",
+        stats: [
+            { label: 'Years Exp', value: '7' },
+            { label: 'Commits', value: '1k+' }
+        ],
+        expertiseGroups: [
+            { category: 'FULLSTACK', skills: ['Node.js', 'React', 'PostgreSQL', 'Redis'], color: 'blue' }
+        ],
+        workExperience: [
+            { role: 'Fullstack Dev', company: 'Robinhood', location: 'Menlo Park, CA', period: '2021 - Present', description: 'Working on core trading and ledger features.' }
+        ],
+        location: 'Menlo Park, USA',
+        localTime: '9:15 AM',
+        languages: 'English, Korean',
+        languageLevel: 'Native',
+        education: 'University of Michigan',
+        educationDetail: 'BS in Comp Sci',
+        nextAvailability: [{ day: 'Mon', time: '10:00 AM', active: true }]
+    }
 ];

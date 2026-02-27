@@ -24,9 +24,10 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import MobileBottomNav from '../../components/layout/MobileBottomNav';
 import { MENTORS } from '../../data/mentors';
 
-// --- Reusable Custom Select Component (State-of-the-art UI) ---
+// custom select component
 const CustomSelect = ({ options, value, onChange, label }) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
@@ -80,6 +81,7 @@ const CustomSelect = ({ options, value, onChange, label }) => {
     );
 };
 
+// categories
 const CATEGORIES = [
     { name: 'All', icon: LayoutGrid },
     { name: 'Engineering', icon: Code },
@@ -87,6 +89,7 @@ const CATEGORIES = [
     { name: 'Marketing', icon: TrendingUp },
 ];
 
+// expertise filters
 const EXPERTISE_FILTERS = [
     'Product Management',
     'Software Engineering',
@@ -95,6 +98,7 @@ const EXPERTISE_FILTERS = [
     'Data Science'
 ];
 
+// industry filters
 const INDUSTRY_FILTERS = [
     'Fintech',
     'Healthcare',
@@ -103,6 +107,7 @@ const INDUSTRY_FILTERS = [
     'AI/ML'
 ];
 
+// mentors directory
 const MentorDirectory = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [isAcceptingMentees, setIsAcceptingMentees] = useState(true);
@@ -121,6 +126,7 @@ const MentorDirectory = () => {
         { id: 3, title: 'Session Reminder', body: 'Upcoming session with Alex in 30m', time: '5h ago', unread: true },
     ];
 
+    // filter sidebar
     const FilterSidebarContent = ({ isMobile = false }) => (
         <div className={`space-y-8 ${isMobile ? 'p-6' : ''}`}>
             {!isMobile && (
@@ -177,7 +183,6 @@ const MentorDirectory = () => {
                     </div>
                 </div>
 
-                {/* Custom Select for Experience Level */}
                 <CustomSelect
                     label="Experience Level"
                     value={experienceLevel}
@@ -210,7 +215,6 @@ const MentorDirectory = () => {
                 `}
             </style>
 
-            {/* Header */}
             <header className="bg-white border-b border-slate-200 h-16 shrink-0 z-[60] flex items-center px-4 lg:px-6">
                 <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-10">
@@ -237,7 +241,6 @@ const MentorDirectory = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        {/* Notification with Premium Banner */}
                         <div className="relative">
                             <button onClick={() => setShowNotifications(!showNotifications)} className={`p-2 transition-colors relative rounded-full ${showNotifications ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}>
                                 <Bell size={20} />
@@ -288,14 +291,11 @@ const MentorDirectory = () => {
             </header>
 
             <div className="flex flex-1 overflow-hidden relative">
-                {/* Desktop Sidebar */}
                 <aside className="hidden lg:block w-[280px] shrink-0 bg-white border-r border-slate-200 overflow-y-auto px-6 py-8 custom-scrollbar">
                     <FilterSidebarContent />
                 </aside>
 
-                {/* Main View Area */}
                 <main className="flex-1 overflow-y-auto bg-[#F8FAFC] custom-scrollbar pb-32 lg:pb-8 relative">
-                    {/* Mobile Search & Filter Area */}
                     <div className="lg:hidden p-4 space-y-4 bg-white border-b border-slate-100">
                         <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-600" size={18} />
@@ -306,7 +306,6 @@ const MentorDirectory = () => {
                             />
                         </div>
 
-                        {/* Scrollable Categories */}
                         <div className="flex gap-2 overflow-x-auto no-scrollbar py-2">
                             {CATEGORIES.map(cat => {
                                 const Icon = cat.icon;
@@ -323,7 +322,6 @@ const MentorDirectory = () => {
                             })}
                         </div>
 
-                        {/* Showing X mentors & Advanced Filters */}
                         <div className="flex items-center justify-between pt-2">
                             <span className="text-[14px] font-bold text-slate-400">Showing 124 mentors</span>
                             <button
@@ -337,7 +335,6 @@ const MentorDirectory = () => {
                     </div>
 
                     <div className="max-w-[1200px] mx-auto p-4 lg:p-8">
-                        {/* Desktop Toolbar */}
                         <div className="hidden lg:flex items-center justify-between mb-8">
                             <div className="flex items-center gap-8">
                                 <div className="flex items-center gap-4">
@@ -350,7 +347,6 @@ const MentorDirectory = () => {
                                                 className={`text-[11px] font-bold px-4 py-1.5 rounded-xl transition-all duration-300 shadow-sm relative overflow-hidden group ${activePopularFilter === t ? 'text-white' : 'bg-white border border-slate-200 text-slate-500 hover:text-blue-600'}`}
                                             >
                                                 <span className="relative z-10">{t}</span>
-                                                {/* Active background */}
                                                 {activePopularFilter === t && (
                                                     <motion.div
                                                         layoutId="activeFilter"
@@ -358,7 +354,6 @@ const MentorDirectory = () => {
                                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                                     />
                                                 )}
-                                                {/* Hover transition fade */}
                                                 <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
                                             </button>
                                         ))}
@@ -377,7 +372,6 @@ const MentorDirectory = () => {
                             </div>
                         </div>
 
-                        {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {MENTORS.filter(m => {
                                 const matchesSearch = m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -448,7 +442,6 @@ const MentorDirectory = () => {
                             ))}
                         </div>
 
-                        {/* Mobile Load More */}
                         <div className="lg:hidden mt-8 flex justify-center">
                             <button className="w-full bg-white border-2 border-slate-200 text-slate-900 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-sm active:scale-95">
                                 <Plus size={20} />
@@ -456,7 +449,6 @@ const MentorDirectory = () => {
                             </button>
                         </div>
 
-                        {/* Desktop Pagination */}
                         <div className="hidden lg:flex items-center justify-center gap-2 mt-12">
                             <button className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-white hover:border-slate-900 transition-all">
                                 <ChevronLeft size={18} />
@@ -474,7 +466,6 @@ const MentorDirectory = () => {
                 </main>
             </div>
 
-            {/* Fixed Footer - Matches Image 2 */}
             <footer className="hidden lg:flex shrink-0 bg-white border-t border-slate-200 h-16 items-center px-10 z-50">
                 <div className="flex items-center justify-between w-full mx-auto max-w-[1400px]">
                     <div className="flex items-center gap-3">
@@ -489,7 +480,6 @@ const MentorDirectory = () => {
                 </div>
             </footer>
 
-            {/* Mobile Filter Sheet */}
             <AnimatePresence>
                 {showMobileFilters && (
                     <>

@@ -19,13 +19,21 @@ import {
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
 import { MENTORS } from '../../data/mentors';
 
-// mentor profile details
+// mentor profile
 const MentorProfile = () => {
     const { id } = useParams();
     const mentor = MENTORS.find(m => m.id === parseInt(id)) || MENTORS[0];
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] font-sans pb-16 lg:pb-10">
+        <div className="min-h-screen bg-[#F8FAFC] font-sans pb-24 lg:pb-12">
+            <style>
+                {`
+                    .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+                    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+                    .custom-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+                `}
+            </style>
+
             <header className="bg-white border-b border-slate-200 h-16 shrink-0 z-[60] flex items-center px-4 lg:px-6 sticky top-0">
                 <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-10">
@@ -61,8 +69,8 @@ const MentorProfile = () => {
                 </div>
             </header>
 
-            <main className="max-w-[1240px] mx-auto px-4 lg:px-8 py-6">
-                <div className="mb-6">
+            <main className="max-w-[1240px] mx-auto px-4 lg:px-8 py-5">
+                <div className="mb-5">
                     <Link
                         to="/mentorship"
                         className="inline-flex items-center gap-2.5 text-slate-500 hover:text-blue-600 font-bold text-[13px] transition-all group"
@@ -74,116 +82,116 @@ const MentorProfile = () => {
                     </Link>
                 </div>
 
-                <div className="flex flex-col lg:flex-row gap-6 items-start">
+                <div className="flex flex-col lg:flex-row gap-5 items-start">
 
-                    <div className="w-full lg:w-[300px] flex flex-col gap-4">
-                        <div className="bg-white rounded-[24px] p-6 border border-slate-100 shadow-sm text-center">
-                            <div className="relative w-20 h-20 mx-auto mb-4">
+                    <div className="w-full lg:w-[290px] flex flex-col gap-3.5">
+                        <div className="bg-white rounded-[24px] p-5 border border-slate-100 shadow-sm text-center">
+                            <div className="relative w-16 h-16 mx-auto mb-3">
                                 <img src={mentor.image} alt={mentor.name} className="w-full h-full object-cover rounded-full border-2 border-slate-50" />
                                 <div className="absolute bottom-0 right-0">
-                                    <CheckCircle2 size={18} className="text-blue-600 fill-white" />
+                                    <CheckCircle2 size={16} className="text-blue-600 fill-white" />
                                 </div>
                             </div>
 
-                            <h1 className="text-lg font-bold text-slate-900 mb-0.5">{mentor.name}</h1>
-                            <p className="text-[12px] font-medium text-blue-600 mb-2 px-4 leading-tight">{mentor.role}</p>
+                            <h1 className="text-base font-bold text-slate-900 mb-0">{mentor.name}</h1>
+                            <p className="text-[11px] font-medium text-blue-600 mb-1.5 px-2 leading-tight uppercase tracking-tight">{mentor.role}</p>
 
-                            <div className="flex items-center justify-center gap-1.5 mb-6">
-                                <Star size={12} className="fill-[#FF9500] text-[#FF9500]" />
-                                <span className="text-[12px] font-bold text-slate-900">{mentor.rating}</span>
-                                <span className="text-[12px] font-medium text-slate-400">({mentor.reviews} reviews)</span>
+                            <div className="flex items-center justify-center gap-1 mb-4">
+                                <Star size={11} className="fill-[#FF9500] text-[#FF9500]" />
+                                <span className="text-[11px] font-bold text-slate-900">{mentor.rating}</span>
+                                <span className="text-[11px] font-medium text-slate-400">({mentor.reviews})</span>
                             </div>
 
-                            <div className="flex items-center justify-between mb-5">
-                                <span className="text-[13px] font-medium text-slate-500">Hourly Rate</span>
-                                <span className="text-lg font-bold text-slate-900">${mentor.hourlyRate}</span>
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-[12px] font-medium text-slate-500">Hourly Rate</span>
+                                <span className="text-base font-bold text-slate-900">${mentor.hourlyRate}</span>
                             </div>
 
-                            <div className="space-y-2.5 mb-5">
-                                <button className="w-full bg-[#1B3BF5] hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-[14px] flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
-                                    <Calendar size={16} />
+                            <div className="space-y-2 mb-4">
+                                <button className="w-full bg-[#1B3BF5] hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-[13px] flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                                    <Calendar size={14} />
                                     Book Session
                                 </button>
-                                <button className="w-full bg-white border border-slate-200 hover:border-slate-400 text-slate-900 font-bold py-3 rounded-xl text-[14px] flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
-                                    <MessageSquare size={16} />
+                                <button className="w-full bg-white border border-slate-200 hover:border-slate-400 text-slate-900 font-bold py-2.5 rounded-xl text-[13px] flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                                    <MessageSquare size={14} />
                                     Message
                                 </button>
                             </div>
 
-                            <div className="flex justify-center gap-6 text-slate-400 border-t border-slate-50 pt-5">
-                                <Linkedin size={18} className="cursor-pointer hover:text-blue-600 transition-colors" />
-                                <Twitter size={18} className="cursor-pointer hover:text-blue-400 transition-colors" />
-                                <Globe2 size={18} className="cursor-pointer hover:text-slate-600 transition-colors" />
+                            <div className="flex justify-center gap-5 text-slate-400 border-t border-slate-50 pt-4">
+                                <Linkedin size={16} className="cursor-pointer hover:text-blue-600 transition-colors" />
+                                <Twitter size={16} className="cursor-pointer hover:text-blue-400 transition-colors" />
+                                <Globe2 size={16} className="cursor-pointer hover:text-slate-600 transition-colors" />
                             </div>
 
-                            <div className="h-px bg-slate-50 my-6" />
+                            <div className="h-px bg-slate-50 my-5" />
 
                             <div className="text-left">
-                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">NEXT AVAILABILITY</h3>
+                                <h3 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">NEXT AVAILABILITY</h3>
                                 <div className="grid grid-cols-2 gap-2">
                                     {(mentor.nextAvailability || []).map((avail, i) => (
-                                        <div key={i} className={`p-2.5 rounded-xl border ${avail.active ? 'bg-green-50/50 border-green-100' : 'bg-slate-50 border-slate-100'}`}>
-                                            <p className={`text-[9px] font-bold mb-0.5 ${avail.active ? 'text-green-600' : 'text-slate-500'}`}>{avail.day}</p>
-                                            <p className="text-[11px] font-bold text-slate-900 leading-none">{avail.time}</p>
+                                        <div key={i} className={`p-2 rounded-xl border ${avail.active ? 'bg-green-50/50 border-green-100' : 'bg-slate-50 border-slate-100'}`}>
+                                            <p className={`text-[8px] font-bold mb-0 ${avail.active ? 'text-green-600' : 'text-slate-500'}`}>{avail.day}</p>
+                                            <p className="text-[10px] font-bold text-slate-900 leading-none">{avail.time}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-[24px] p-5 border border-slate-100 shadow-sm space-y-4">
-                            <div className="flex gap-4 items-start">
-                                <MapPin size={18} className="text-blue-600 shrink-0" />
+                        <div className="bg-white rounded-[24px] p-4.5 border border-slate-100 shadow-sm space-y-3.5">
+                            <div className="flex gap-3.5 items-start">
+                                <MapPin size={16} className="text-blue-600 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[13px] font-bold text-slate-900">{mentor.location}</p>
-                                    <p className="text-[11px] text-slate-400 font-medium">Local Time: {mentor.localTime}</p>
+                                    <p className="text-[12px] font-bold text-slate-900">{mentor.location}</p>
+                                    <p className="text-[10px] text-slate-400 font-medium">Local Time: {mentor.localTime}</p>
                                 </div>
                             </div>
-                            <div className="flex gap-4 items-start">
-                                <Globe size={18} className="text-blue-600 shrink-0" />
+                            <div className="flex gap-3.5 items-start">
+                                <Globe size={16} className="text-blue-600 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[13px] font-bold text-slate-900">{mentor.languages}</p>
-                                    <p className="text-[11px] text-slate-400 font-medium">{mentor.languageLevel}</p>
+                                    <p className="text-[12px] font-bold text-slate-900">{mentor.languages}</p>
+                                    <p className="text-[10px] text-slate-400 font-medium">{mentor.languageLevel}</p>
                                 </div>
                             </div>
-                            <div className="flex gap-4 items-start">
-                                <GraduationCap size={18} className="text-blue-600 shrink-0" />
+                            <div className="flex gap-3.5 items-start">
+                                <GraduationCap size={16} className="text-blue-600 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[13px] font-bold text-slate-900">{mentor.education}</p>
-                                    <p className="text-[11px] text-slate-400 font-medium">{mentor.educationDetail}</p>
+                                    <p className="text-[12px] font-bold text-slate-900">{mentor.education}</p>
+                                    <p className="text-[10px] text-slate-400 font-medium">{mentor.educationDetail}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex-1 space-y-4">
-                        <div className="bg-white rounded-[24px] p-8 border border-slate-100 shadow-sm">
-                            <h2 className="text-lg font-bold text-slate-900 mb-5 font-sans">About Me</h2>
-                            <p className="text-[14px] text-slate-500 leading-relaxed mb-8 whitespace-pre-line">
+                    <div className="flex-1 space-y-3.5 custom-scrollbar">
+                        <div className="bg-white rounded-[24px] p-6 lg:p-7 border border-slate-100 shadow-sm">
+                            <h2 className="text-base font-bold text-slate-900 mb-4 font-sans">About Me</h2>
+                            <p className="text-[13px] text-slate-500 leading-relaxed mb-6 whitespace-pre-line font-medium">
                                 {mentor.aboutMe}
                             </p>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
                                 {(mentor.stats || []).map((stat, i) => (
-                                    <div key={i} className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4 hover:bg-white hover:shadow-md hover:border-blue-100 transition-all group">
-                                        <p className="text-2xl font-bold text-blue-600 mb-0.5 group-hover:scale-105 transition-transform origin-left">{stat.value}</p>
-                                        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">{stat.label}</p>
+                                    <div key={i} className="bg-slate-50/50 border border-slate-100 rounded-xl p-3.5 hover:bg-white hover:shadow-sm hover:border-blue-100 transition-all group">
+                                        <p className="text-xl font-bold text-blue-600 mb-0 group-hover:scale-105 transition-transform origin-left">{stat.value}</p>
+                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{stat.label}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-[24px] p-8 border border-slate-100 shadow-sm">
-                            <h2 className="text-lg font-bold text-slate-900 mb-6 font-sans">Expertise & Skills</h2>
-                            <div className="space-y-8">
+                        <div className="bg-white rounded-[24px] p-6 lg:p-7 border border-slate-100 shadow-sm">
+                            <h2 className="text-base font-bold text-slate-900 mb-5 font-sans">Expertise & Skills</h2>
+                            <div className="space-y-6">
                                 {(mentor.expertiseGroups || []).map((group, i) => (group && group.skills && (
                                     <div key={i}>
-                                        <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">{group.category}</h3>
-                                        <div className="flex flex-wrap gap-2">
+                                        <h3 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">{group.category}</h3>
+                                        <div className="flex flex-wrap gap-1.5">
                                             {group.skills.map((skill, j) => (
                                                 <span
                                                     key={j}
-                                                    className={`px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all cursor-default ${group.color === 'blue' ? 'bg-blue-50 text-blue-600' : 'bg-[#F0FDF4] text-green-600'}`}
+                                                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all cursor-default ${group.color === 'blue' ? 'bg-blue-50 text-blue-600' : 'bg-[#F0FDF4] text-green-600'}`}
                                                 >
                                                     {skill}
                                                 </span>
@@ -194,30 +202,30 @@ const MentorProfile = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-[24px] p-8 border border-slate-100 shadow-sm">
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-lg font-bold text-slate-900">Experience</h2>
-                                <button className="text-[10px] font-bold text-blue-600 hover:underline uppercase tracking-tight flex items-center gap-1.5">
+                        <div className="bg-white rounded-[24px] p-6 lg:p-7 border border-slate-100 shadow-sm">
+                            <div className="flex items-center justify-between mb-5">
+                                <h2 className="text-base font-bold text-slate-900">Experience</h2>
+                                <button className="text-[9px] font-bold text-blue-600 hover:underline uppercase tracking-tight flex items-center gap-1.5">
                                     Download Resume
                                 </button>
                             </div>
 
-                            <div className="space-y-6">
+                            <div className="space-y-5">
                                 {(mentor.workExperience || []).map((exp, i) => (
-                                    <div key={i} className="flex gap-4 relative group">
+                                    <div key={i} className="flex gap-3.5 relative group">
                                         <div className="flex flex-col items-center shrink-0 pt-1.5">
-                                            <div className={`w-2 h-2 rounded-full z-10 ${i === 0 ? 'bg-blue-600' : 'bg-slate-200'}`} />
+                                            <div className={`w-1.5 h-1.5 rounded-full z-10 ${i === 0 ? 'bg-blue-600' : 'bg-slate-200'}`} />
                                             {i !== (mentor.workExperience || []).length - 1 && (
-                                                <div className="w-px h-20 bg-slate-100 -mt-1" />
+                                                <div className="w-px h-16 bg-slate-100 -mt-0.5" />
                                             )}
                                         </div>
-                                        <div className="flex-1 pb-4">
+                                        <div className="flex-1 pb-3">
                                             <div className="flex items-center justify-between mb-0.5">
-                                                <h3 className="text-[14px] font-bold text-slate-900">{exp.role}</h3>
-                                                <p className="text-[11px] font-bold text-slate-400">{exp.period}</p>
+                                                <h3 className="text-[13px] font-bold text-slate-900">{exp.role}</h3>
+                                                <p className="text-[10px] font-bold text-slate-400">{exp.period}</p>
                                             </div>
-                                            <p className="text-[12px] font-bold text-blue-600 mb-3">{exp.company} <span className="text-slate-300 mx-1">•</span> <span className="text-slate-400 font-medium">{exp.location}</span></p>
-                                            <p className="text-[12px] text-slate-500 leading-relaxed font-medium line-clamp-2">
+                                            <p className="text-[11px] font-bold text-blue-600 mb-2">{exp.company} <span className="text-slate-300 mx-1">•</span> <span className="text-slate-400 font-medium">{exp.location}</span></p>
+                                            <p className="text-[11px] text-slate-500 leading-relaxed font-medium line-clamp-2">
                                                 {exp.description}
                                             </p>
                                         </div>
@@ -226,34 +234,34 @@ const MentorProfile = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-[24px] p-8 border border-slate-100 shadow-sm">
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-lg font-bold text-slate-900">What Mentees Say</h2>
-                                <button className="text-[10px] font-bold text-blue-600 hover:underline flex items-center gap-1 transition-all">
+                        <div className="bg-white rounded-[24px] p-6 lg:p-7 border border-slate-100 shadow-sm">
+                            <div className="flex items-center justify-between mb-5">
+                                <h2 className="text-base font-bold text-slate-900">What Mentees Say</h2>
+                                <button className="text-[9px] font-bold text-blue-600 hover:underline flex items-center gap-1 transition-all">
                                     View all {mentor.reviews} reviews
                                 </button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                                 {(mentor.menteeReviews || []).map((review, i) => (
-                                    <div key={i} className="p-5 bg-slate-50 border border-slate-100 rounded-[20px] flex flex-col">
-                                        <div className="flex items-center justify-between mb-3">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-[10px]">
+                                    <div key={i} className="p-4 bg-slate-50 border border-slate-100 rounded-[20px] flex flex-col">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <div className="flex items-center gap-2.5">
+                                                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-[9px]">
                                                     {review.avatar}
                                                 </div>
                                                 <div>
-                                                    <p className="text-[12px] font-bold text-slate-900 leading-tight">{review.name}</p>
-                                                    <p className="text-[11px] text-slate-400 font-medium mt-0.5">{review.role}</p>
+                                                    <p className="text-[11px] font-bold text-slate-900 leading-tight">{review.name}</p>
+                                                    <p className="text-[10px] text-slate-400 font-medium mt-0.5">{review.role}</p>
                                                 </div>
                                             </div>
                                             <div className="flex gap-0.5">
                                                 {[...Array(5)].map((_, j) => (
-                                                    <Star key={j} size={10} className={`fill-[#FF9500] text-[#FF9500] ${j >= review.rating ? 'opacity-20' : ''}`} />
+                                                    <Star key={j} size={9} className={`fill-[#FF9500] text-[#FF9500] ${j >= review.rating ? 'opacity-20' : ''}`} />
                                                 ))}
                                             </div>
                                         </div>
-                                        <p className="text-[12px] text-slate-500 leading-relaxed italic font-medium">
+                                        <p className="text-[11px] text-slate-500 leading-relaxed italic font-medium">
                                             {review.content}
                                         </p>
                                     </div>
