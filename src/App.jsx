@@ -14,6 +14,7 @@ import DashboardLayout from "./components/dashboard/layout/DashboardLayout";
 import UserDashboard from "./pages/dashboard/UserDashboard";
 import LearningDashboard from "./pages/dashboard/LearningDashboard";
 import MentorDirectory from "./pages/dashboard/MentorDirectory";
+import MentorProfile from "./pages/dashboard/MentorProfile";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
 
       {/* Pages without the main dashboard sidebar */}
       <Route path="/mentorship" element={<MentorDirectory />} />
+      <Route path="/mentorship/profile/:id" element={<MentorProfile />} />
 
     </Routes>
   );
