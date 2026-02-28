@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { smooth } from '../animations';
+import { smooth } from '../../animations';
 
 const TrustedBy = () => {
   const partners = ['HexaTech', 'Pyramid', 'Infinite', 'Target', 'Energy'];

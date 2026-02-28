@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
-import LearningPaths from "../components/learningpath";
-import Footer from "../components/footer";
+import Navbar from "../../components/landingpage/Navbar";
+import LearningPaths from "../../components/landingpage/learningpath";
+import Footer from "../../components/landingpage/footer";
 
 const ExploreSkills = () => {
     return (

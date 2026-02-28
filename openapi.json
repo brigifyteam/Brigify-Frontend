@@ -1,0 +1,1582 @@
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Bridgify API",
+      "version": "1.0.0",
+      "description": "API documentation for Bridgify Backend",
+      "contact": {
+        "name": "Bridgify Team"
+      }
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000/bridgify/api/v1",
+        "description": "Development server"
+      },
+      {
+        "url": "https://brigify-backend-1.onrender.com/bridgify/api/v1",
+        "description": "Production server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Health",
+        "description": "Health check endpoints"
+      },
+      {
+        "name": "Auth",
+        "description": "Authentication endpoints"
+      },
+      {
+        "name": "Users",
+        "description": "User profile management"
+      },
+      {
+        "name": "Mentors",
+        "description": "Mentor directory and profiles"
+      },
+      {
+        "name": "Jobs",
+        "description": "Job listings and management"
+      },
+      {
+        "name": "Courses",
+        "description": "Course catalog and enrollment"
+      },
+      {
+        "name": "Landing",
+        "description": "Landing page content"
+      },
+      {
+        "name": "Admin",
+        "description": "Admin operations"
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    },
+    "paths": {
+      "/admin/overview": {
+        "get": {
+          "summary": "Get core metrics for the admin dashboard overview",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Metrics retrieved successfully"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden - Admin only"
+            }
+          }
+        }
+      },
+      "/admin/users": {
+        "get": {
+          "summary": "Get all users with filtering and pagination",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            },
+            {
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "role",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "learner",
+                  "mentor",
+                  "employer",
+                  "admin"
+                ]
+              }
+            },
+            {
+              "in": "query",
+              "name": "isActive",
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Users retrieved successfully"
+            }
+          }
+        }
+      },
+      "/admin/users/{id}": {
+        "patch": {
+          "summary": "Update a user's details (role, status, etc.)",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "learner",
+                        "mentor",
+                        "employer",
+                        "admin"
+                      ]
+                    },
+                    "isActive": {
+                      "type": "boolean"
+                    },
+                    "isEmailVerified": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User updated successfully"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/admin/jobs": {
+        "get": {
+          "summary": "Get all jobs with filtering and pagination",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            },
+            {
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "isActive",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "in": "query",
+              "name": "type",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "full-time",
+                  "part-time",
+                  "contract",
+                  "freelance",
+                  "internship"
+                ]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Jobs retrieved successfully"
+            }
+          }
+        }
+      },
+      "/admin/jobs/{id}": {
+        "patch": {
+          "summary": "Update job status or verify company",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "isActive": {
+                      "type": "boolean"
+                    },
+                    "company": {
+                      "type": "object",
+                      "properties": {
+                        "isVerified": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Job updated successfully"
+            },
+            "404": {
+              "description": "Job not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a job posting",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Job deleted successfully"
+            },
+            "404": {
+              "description": "Job not found"
+            }
+          }
+        }
+      },
+      "/admin/mentors/stats": {
+        "get": {
+          "summary": "Get statistics for mentors management",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Mentor stats retrieved successfully"
+            }
+          }
+        }
+      },
+      "/admin/mentors": {
+        "get": {
+          "summary": "Get all mentors with detailed info for admin directory",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            },
+            {
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Mentors retrieved successfully"
+            }
+          }
+        }
+      },
+      "/admin/mentors/invite": {
+        "post": {
+          "summary": "Invite a new mentor",
+          "tags": [
+            "Admin"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "email"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "type": "string"
+                    },
+                    "expertise": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Invitation sent successfully"
+            }
+          }
+        }
+      },
+      "/auth/register": {
+        "post": {
+          "summary": "Register a new user",
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "email",
+                    "password"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "password": {
+                      "type": "string",
+                      "minLength": 8
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "learner",
+                        "mentor",
+                        "employer"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User registered successfully"
+            },
+            "400": {
+              "description": "Validation error or user already exists"
+            }
+          }
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "summary": "Login user",
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "email",
+                    "password"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login successful"
+            },
+            "401": {
+              "description": "Invalid credentials"
+            }
+          }
+        }
+      },
+      "/auth/verify-email": {
+        "get": {
+          "summary": "Verify user email",
+          "tags": [
+            "Auth"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "token",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Email verification token"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Email verified successfully"
+            },
+            "400": {
+              "description": "Invalid or expired token"
+            }
+          }
+        }
+      },
+      "/auth/resend-verification": {
+        "post": {
+          "summary": "Resend verification email",
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "email"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Verification email sent successfully"
+            },
+            "400": {
+              "description": "Email already verified"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/auth/forgot-password": {
+        "post": {
+          "summary": "Request password reset",
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "email"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Password reset email sent if email exists"
+            }
+          }
+        }
+      },
+      "/auth/reset-password": {
+        "post": {
+          "summary": "Reset password with token",
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "token",
+                    "newPassword"
+                  ],
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "Password reset token from email"
+                    },
+                    "newPassword": {
+                      "type": "string",
+                      "minLength": 8
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Password reset successfully"
+            },
+            "400": {
+              "description": "Invalid or expired token"
+            }
+          }
+        }
+      },
+      "/courses": {
+        "get": {
+          "summary": "Get all courses",
+          "tags": [
+            "Courses"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Page number (default 1)"
+            },
+            {
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Items per page (default 20)"
+            },
+            {
+              "in": "query",
+              "name": "category",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Filter by category (e.g., \"UX Design\", \"Web Development\")"
+            },
+            {
+              "in": "query",
+              "name": "skillLevel",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "beginner",
+                  "intermediate",
+                  "advanced"
+                ]
+              },
+              "description": "Filter by skill level"
+            },
+            {
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Search by title or description"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of courses"
+            }
+          }
+        }
+      },
+      "/courses/categories": {
+        "get": {
+          "summary": "Get all course categories",
+          "tags": [
+            "Courses"
+          ],
+          "responses": {
+            "200": {
+              "description": "List of categories with course counts"
+            }
+          }
+        }
+      },
+      "/courses/{courseId}": {
+        "get": {
+          "summary": "Get course by ID",
+          "tags": [
+            "Courses"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "courseId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Course ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Course details"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        }
+      },
+      "/courses/{courseId}/enroll": {
+        "post": {
+          "summary": "Enroll in a course",
+          "tags": [
+            "Courses"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "courseId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Course ID"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Successfully enrolled"
+            },
+            "400": {
+              "description": "Already enrolled"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        }
+      },
+      "/courses/{courseId}/progress": {
+        "patch": {
+          "summary": "Update course progress",
+          "tags": [
+            "Courses"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "courseId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Course ID"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "progress": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "completedModules": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Progress updated"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Enrollment not found"
+            }
+          }
+        }
+      },
+      "/jobs": {
+        "get": {
+          "summary": "Get list of jobs and gigs",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "type",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "full-time",
+                  "part-time",
+                  "contract",
+                  "freelance",
+                  "internship"
+                ]
+              },
+              "description": "Filter by job type"
+            },
+            {
+              "in": "query",
+              "name": "location",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Filter by location (e.g., \"Remote\", \"New York\")"
+            },
+            {
+              "in": "query",
+              "name": "skills",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Filter by required skills (e.g., \"React\", \"Python\")"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of jobs retrieved successfully"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new job posting (Employers only)",
+          "tags": [
+            "Jobs"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "title",
+                    "company",
+                    "location",
+                    "type",
+                    "experienceLevel",
+                    "description",
+                    "postedBy"
+                  ],
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "Senior UX Designer"
+                    },
+                    "company": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "TechFlow Solutions"
+                        },
+                        "logo": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "isVerified": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "location": {
+                      "type": "string",
+                      "example": "San Francisco, CA (Remote)"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "full-time",
+                        "part-time",
+                        "contract",
+                        "freelance",
+                        "internship"
+                      ]
+                    },
+                    "experienceLevel": {
+                      "type": "string",
+                      "example": "Mid-Senior Level"
+                    },
+                    "salary": {
+                      "type": "string",
+                      "example": "$90k - $120k / yr"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "responsibilities": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "requirements": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "skills": {
+                      "type": "object",
+                      "properties": {
+                        "required": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "Figma",
+                            "User Research",
+                            "Wireframing"
+                          ]
+                        },
+                        "niceToHave": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "HTML/CSS",
+                            "Motion Design"
+                          ]
+                        }
+                      }
+                    },
+                    "postedBy": {
+                      "type": "string",
+                      "description": "User ID of the employer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Job created successfully"
+            },
+            "400": {
+              "description": "Missing required fields"
+            }
+          }
+        }
+      },
+      "/jobs/{jobId}": {
+        "get": {
+          "summary": "Get job by ID",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "jobId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Job retrieved successfully"
+            },
+            "404": {
+              "description": "Job not found"
+            }
+          }
+        },
+        "patch": {
+          "summary": "Update a job posting",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "jobId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Job updated successfully"
+            },
+            "404": {
+              "description": "Job not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a job posting",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "jobId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Job deleted successfully"
+            },
+            "404": {
+              "description": "Job not found"
+            }
+          }
+        }
+      },
+      "/landing/how-it-works": {
+        "get": {
+          "summary": "Get \"How It Works\" content for landing page",
+          "tags": [
+            "Landing"
+          ],
+          "responses": {
+            "200": {
+              "description": "How it works content retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "Your 5-Step Path to Success"
+                      },
+                      "subtitle": {
+                        "type": "string"
+                      },
+                      "videoUrl": {
+                        "type": "string"
+                      },
+                      "videoDuration": {
+                        "type": "string"
+                      },
+                      "steps": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "step": {
+                              "type": "number"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "icon": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/landing/stats": {
+        "get": {
+          "summary": "Get platform statistics for landing page",
+          "tags": [
+            "Landing"
+          ],
+          "responses": {
+            "200": {
+              "description": "Platform stats retrieved successfully"
+            }
+          }
+        }
+      },
+      "/landing/testimonials": {
+        "get": {
+          "summary": "Get user testimonials for landing page",
+          "tags": [
+            "Landing"
+          ],
+          "responses": {
+            "200": {
+              "description": "Testimonials retrieved successfully"
+            }
+          }
+        }
+      },
+      "/mentors": {
+        "get": {
+          "summary": "Get list of mentors",
+          "tags": [
+            "Mentors"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "expertise",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Filter by expertise (e.g., \"UX Design\", \"Data Science\")"
+            },
+            {
+              "in": "query",
+              "name": "minRating",
+              "schema": {
+                "type": "number"
+              },
+              "description": "Minimum rating filter"
+            },
+            {
+              "in": "query",
+              "name": "maxRate",
+              "schema": {
+                "type": "number"
+              },
+              "description": "Maximum hourly rate filter"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of mentors retrieved successfully"
+            }
+          }
+        }
+      },
+      "/mentors/{mentorId}": {
+        "get": {
+          "summary": "Get mentor by ID",
+          "tags": [
+            "Mentors"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "mentorId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Mentor retrieved successfully"
+            },
+            "404": {
+              "description": "Mentor not found"
+            }
+          }
+        }
+      },
+      "/users/{userId}/courses": {
+        "get": {
+          "summary": "Get user's enrolled courses",
+          "tags": [
+            "Users"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "userId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "User ID"
+            },
+            {
+              "in": "query",
+              "name": "status",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "in-progress",
+                  "completed",
+                  "dropped"
+                ]
+              },
+              "description": "Filter by enrollment status"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of enrolled courses"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          }
+        }
+      },
+      "/users/{userId}/profile": {
+        "get": {
+          "summary": "Get user profile",
+          "tags": [
+            "Users"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "userId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User profile retrieved successfully"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/users/{userId}/learner-profile": {
+        "patch": {
+          "summary": "Update learner profile (interests & goals)",
+          "tags": [
+            "Users"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "userId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "interests": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "Data Science",
+                        "UX Design",
+                        "Web Development"
+                      ]
+                    },
+                    "goal": {
+                      "type": "string",
+                      "enum": [
+                        "get-hired",
+                        "freelance",
+                        "upskill"
+                      ],
+                      "example": "get-hired"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Learner profile updated successfully"
+            },
+            "403": {
+              "description": "Only learners can update learner profile"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/users/{userId}/mentor-profile": {
+        "patch": {
+          "summary": "Update mentor profile (expertise, availability, etc.)",
+          "tags": [
+            "Users"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "userId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "expertise": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "UI/UX",
+                        "Figma",
+                        "Career Prep"
+                      ]
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Senior Product Designer"
+                    },
+                    "company": {
+                      "type": "string",
+                      "example": "Google"
+                    },
+                    "bio": {
+                      "type": "string",
+                      "example": "Passionate about helping junior designers..."
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "example": "London, UK (GMT +00:00)"
+                    },
+                    "availability": {
+                      "type": "object",
+                      "properties": {
+                        "monday": {
+                          "type": "object",
+                          "properties": {
+                            "slots": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "09:00 - 12:00",
+                                "16:00 - 18:00"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "sessionDuration": {
+                      "type": "number",
+                      "enum": [
+                        30,
+                        45,
+                        60
+                      ],
+                      "example": 45
+                    },
+                    "isAvailable": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "experienceLevel": {
+                      "type": "string",
+                      "example": "Mid-Senior (4-7 years)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Mentor profile updated successfully"
+            },
+            "403": {
+              "description": "Only mentors can update mentor profile"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/health": {
+        "get": {
+          "summary": "Health check endpoint",
+          "tags": [
+            "Health"
+          ],
+          "responses": {
+            "200": {
+              "description": "Server is running",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "ok"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Server is running"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "database": {
+                        "type": "string",
+                        "example": "connected"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }

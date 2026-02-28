@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "../api/auth";
 import {
     GraduationCap,
     Briefcase,
@@ -104,6 +106,35 @@ const AuthPage = () => {
         confirmPassword: ''
     });
     const [errors, setErrors] = useState({});
+    const [successMsg, setSuccessMsg] = useState('');
+    const registerMutation = useMutation({
+        mutationFn: registerUser,
+        onSuccess: (data) => {
+            console.log("Registration success:", data);
+            setSuccessMsg(data?.message || 'Registration successful. Check your email.');
+            setErrors({});
+            // You can redirect here later
+        },
+        onError: (error) => {
+            console.error("Registration failed:", error.response?.data || error.message || error);
+            const resp = error.response?.data;
+            // If backend provides fielded errors object, use it. Otherwise map message to a field or general.
+            if (resp && typeof resp === 'object' && resp.errors && typeof resp.errors === 'object') {
+                setErrors(resp.errors);
+            } else if (resp && resp.message) {
+                const message = resp.message;
+                if (message.toLowerCase().includes('email')) {
+                    setErrors({ email: message });
+                } else if (message.toLowerCase().includes('password')) {
+                    setErrors({ password: message });
+                } else {
+                    setErrors({ general: message });
+                }
+            } else {
+                setErrors({ general: 'Registration failed. Please try again.' });
+            }
+        }
+    });
 
     const roles = useMemo(() => [
         { id: 'learner', label: 'Learner', icon: <GraduationCap /> },
@@ -113,12 +144,14 @@ const AuthPage = () => {
 
     const handleInputChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
-        if (errors[field]) {
+        if (errors[field] || errors.general) {
             setErrors(prev => {
                 const newErrors = { ...prev };
                 delete newErrors[field];
+                delete newErrors.general;
                 return newErrors;
             });
+            setSuccessMsg('');
         }
     };
 
@@ -264,6 +297,9 @@ const AuthPage = () => {
 
         return (
             <div key={step} className={`space-y-6 ${direction === 'right' ? 'animate-slide-right' : 'animate-slide-left'}`}>
+                {successMsg && (
+                    <p className="text-sm text-emerald-600 font-medium">{successMsg}</p>
+                )}
                 {step === 1 ? (
                     <div className="space-y-6">
                         <div className="space-y-3">
@@ -356,6 +392,10 @@ const AuthPage = () => {
                             onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                         />
 
+                        {errors.general && (
+                            <p className="text-sm text-red-600 font-medium mt-1">{errors.general}</p>
+                        )}
+
                         <div className="flex gap-3 pt-2">
                             <Button
                                 variant="secondary"
@@ -367,7 +407,15 @@ const AuthPage = () => {
                             </Button>
                             <Button
                                 className="flex-[2] py-4 font-bold tracking-wide transition-all active:scale-[0.98]"
-                                onClick={() => validateStep2() && console.log("Submit:", formData)}
+                                onClick={() => {
+                                    if (validateStep2()) {
+                                        registerMutation.mutate({
+                                            email: formData.email,
+                                            password: formData.password,
+                                            role: formData.role
+                                        });
+                                    }
+                                }}
                             >
                                 Create Account
                             </Button>

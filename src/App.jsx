@@ -2,12 +2,12 @@ import { Routes, Route } from "react-router-dom";
 
 // Page Imports
 import AuthPage from "./pages/AuthPage";
-import Home from "./Landing/pages/home";
+import Home from "./pages/landingpage/home";
 import MenteeOnboarding from "./pages/onboarding/MenteeOnboarding";
 import MentorOnboarding from "./pages/onboarding/MentorOnboarding";
-import HowItWorks from "./Landing/pages/howitworks";
-import Jobs from "./Landing/pages/jobs";
-import ExploreSkills from "./Landing/pages/exploreskills";
+import HowItWorks from "./pages/landingpage/howitworks";
+import Jobs from "./pages/landingpage/jobs";
+import ExploreSkills from "./pages/landingpage/exploreskills";
 
 // Make sure to import these components (Update paths if necessary)
 import DashboardLayout from "./components/dashboard/layout/DashboardLayout"; 

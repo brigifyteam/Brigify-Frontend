@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pencil, Rocket, Sparkles, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { smooth } from '../animations';
+import { smooth } from '../../animations';
 
 const JourneySection = () => {
   return (

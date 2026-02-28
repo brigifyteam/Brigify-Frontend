@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
-@theme {
+:root {
     --color-primary: #2563eb;
     --color-primary-hover: #1d4ed8;
     --color-primary-light: #eff6ff;
@@ -19,7 +19,16 @@
 
 @layer base {
     body {
-        @apply font-outfit bg-bg-base text-text-main antialiased selection:bg-blue-100 selection:text-blue-900;
+        font-family: var(--font-outfit);
+        background-color: var(--color-bg-base);
+        color: var(--color-text-main);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+        background: var(--color-primary-light);
+        color: var(--color-primary);
     }
 }
 
