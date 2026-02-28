@@ -65,6 +65,10 @@ const JobCard = ({ job }) => {
                         <Banknote className="w-4 h-4 text-gray-400" />
                         {salaryText}
                     </div>
+                    <div className="flex items-center gap-1.5 bg-gray-50 px-2 py-1 rounded-md border border-gray-100">
+                        <Briefcase className="w-4 h-4 text-gray-400" />
+                        {experienceDisplay}
+                    </div>
                 </div>
             </div>
 

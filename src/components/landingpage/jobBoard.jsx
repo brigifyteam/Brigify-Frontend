@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Search,
@@ -50,14 +50,12 @@ export default function JobBoard() {
   const [isRemote, setIsRemote] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedSkills, selectedExp, locationQuery, isRemote]);
 
   const toggleSkill = (skill) => {
     setSelectedSkills(prev =>
       prev.includes(skill) ? prev.filter(s => s !== skill) : [...prev, skill]
     );
+    setCurrentPage(1);
   };
 
   const clearFilters = () => {
@@ -66,6 +64,7 @@ export default function JobBoard() {
     setSelectedExp("");
     setLocationQuery("");
     setIsRemote(false);
+    setCurrentPage(1);
   };
 
   const filteredJobs = useMemo(() => {
@@ -148,8 +147,8 @@ export default function JobBoard() {
                     <input type="checkbox" className="hidden" checked={isChecked} onChange={() => toggleSkill(skill)} />
                     <div
                       className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${isChecked
-                          ? "bg-blue-600 border-blue-600"
-                          : "border-gray-300 bg-white group-hover:border-blue-400"
+                        ? "bg-blue-600 border-blue-600"
+                        : "border-gray-300 bg-white group-hover:border-blue-400"
                         }`}
                     >
                       {isChecked && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
@@ -177,8 +176,8 @@ export default function JobBoard() {
                     />
                     <div
                       className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${isChecked
-                          ? "border-blue-600 bg-white ring-1 ring-blue-600 ring-offset-1"
-                          : "border-gray-300 bg-white group-hover:border-blue-400"
+                        ? "border-blue-600 bg-white ring-1 ring-blue-600 ring-offset-1"
+                        : "border-gray-300 bg-white group-hover:border-blue-400"
                         }`}
                     >
                       {isChecked && <div className="w-2 h-2 rounded-full bg-blue-600" />}
@@ -198,16 +197,22 @@ export default function JobBoard() {
               <input
                 type="text"
                 value={locationQuery}
-                onChange={e => setLocationQuery(e.target.value)}
+                onChange={e => {
+                  setLocationQuery(e.target.value);
+                  setCurrentPage(1);
+                }}
                 placeholder="City or Country"
                 className="w-full pl-9 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 shadow-sm transition-all"
               />
             </div>
             <button
-              onClick={() => setIsRemote(!isRemote)}
+              onClick={() => {
+                setIsRemote(!isRemote);
+                setCurrentPage(1);
+              }}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-200 ${isRemote
-                  ? "bg-indigo-100 text-indigo-700 border border-indigo-200 hover:bg-indigo-200"
-                  : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
+                ? "bg-indigo-100 text-indigo-700 border border-indigo-200 hover:bg-indigo-200"
+                : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
                 }`}
             >
               Remote Only
@@ -224,10 +229,13 @@ export default function JobBoard() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search job titles, keywords, or companies..."
+                placeholder="Search jobs, skills..."
                 className="w-full pl-11 pr-4 py-3.5 bg-white border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1);
+                }}
               />
             </div>
             <div className="text-sm text-gray-500 bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm whitespace-nowrap">
@@ -282,8 +290,8 @@ export default function JobBoard() {
                     key={page}
                     onClick={() => handlePageChange(page)}
                     className={`w-9 h-9 flex items-center justify-center rounded-lg font-semibold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentPage === page
-                        ? "bg-blue-600 text-white shadow-sm focus:ring-offset-1"
-                        : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
+                      ? "bg-blue-600 text-white shadow-sm focus:ring-offset-1"
+                      : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                       }`}
                   >
                     {page}

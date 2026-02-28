@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Layout = ({ children, hideNavOnMobile = false }) => {
+const Layout = ({ children }) => {
     return (
         <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden">
             {/* Navbar */}

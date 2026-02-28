@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StatCard = ({ title, value, icon: Icon, iconBg: IconBg, iconColor: IconColor }) => {
+const StatCard = ({ title, value, icon: Icon, iconBg: IconBg, iconColor: IconColor }) => { // eslint-disable-line no-unused-vars
     return (
         <div className="bg-white rounded-2xl p-6 border border-gray-100 flex flex-col shadow-sm">
             <div className={`w-10 h-10 ${IconBg} rounded-full flex items-center justify-center mb-4`}>
