@@ -23,9 +23,11 @@ import {
     ChevronDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
+import { MENTORS } from '../../data/mentors';
 
-// --- Reusable Custom Select Component (State-of-the-art UI) ---
+// custom select component
 const CustomSelect = ({ options, value, onChange, label }) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
@@ -79,16 +81,7 @@ const CustomSelect = ({ options, value, onChange, label }) => {
     );
 };
 
-// Mock Data
-const MENTORS = [
-    { id: 1, name: 'Sarah Chen', role: 'Senior PM at Google', rating: 4.9, image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop', skills: ['PRODUCT STRATEGY', 'B2B SAAS'], description: 'Helping aspiring product managers break into tech and master the art of data-driven decision making.', status: 'online' },
-    { id: 2, name: 'Marcus Rodriguez', role: 'Staff Engineer at Stripe', rating: 5.0, image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop', skills: ['BACKEND ARCHITECTURE', 'FINTECH'], description: '12+ years experience in building scalable payment systems. Expert in distributed systems.', status: 'online' },
-    { id: 3, name: 'Elena Petrova', role: 'Design Lead at Airbnb', rating: 4.8, image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1974&auto=format&fit=crop', skills: ['PRODUCT DESIGN', 'USER RESEARCH'], description: 'Focusing on human-centered design principles and building products that users truly love and value.', status: 'online' },
-    { id: 4, name: 'David Wilson', role: 'VP of Growth at Revolut', rating: 4.9, image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1974&auto=format&fit=crop', skills: ['GROWTH HACKING', 'E-COMMERCE'], description: 'Expert in scaling startups from seed to Series C. Master of performance marketing.', status: 'online' },
-    { id: 5, name: 'Aisha Khan', role: 'ML Research Lead at DeepMind', rating: 5.0, image: 'https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=1972&auto=format&fit=crop', skills: ['DEEP LEARNING', 'AI ETHICS'], description: 'Pioneering transformer architectures and exploring the intersections of AI and ethics.', status: 'online' },
-    { id: 6, name: 'Jordan Smith', role: 'Data Science Director at Netflix', rating: 4.7, image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop', skills: ['BIG DATA', 'ANALYTICS'], description: 'Expert in recommendation engines and behavioral analytics. Mentor for high-growth data teams.', status: 'online' }
-];
-
+// categories
 const CATEGORIES = [
     { name: 'All', icon: LayoutGrid },
     { name: 'Engineering', icon: Code },
@@ -96,30 +89,36 @@ const CATEGORIES = [
     { name: 'Marketing', icon: TrendingUp },
 ];
 
+// expertise filters
 const EXPERTISE_FILTERS = [
-    { name: 'Product Management', checked: true },
-    { name: 'Software Engineering', checked: false },
-    { name: 'Marketing', checked: false },
-    { name: 'UX Design', checked: false },
-    { name: 'Data Science', checked: false }
+    'Product Management',
+    'Software Engineering',
+    'Marketing',
+    'UX Design',
+    'Data Science'
 ];
 
+// industry filters
 const INDUSTRY_FILTERS = [
-    { name: 'Fintech', checked: false },
-    { name: 'Healthcare', checked: false },
-    { name: 'Edtech', checked: false },
-    { name: 'E-commerce', checked: false },
-    { name: 'AI/ML', checked: true }
+    'Fintech',
+    'Healthcare',
+    'Edtech',
+    'E-commerce',
+    'AI/ML'
 ];
 
+// mentors directory
 const MentorDirectory = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [isAcceptingMentees, setIsAcceptingMentees] = useState(true);
     const [showNotifications, setShowNotifications] = useState(false);
     const [showMobileFilters, setShowMobileFilters] = useState(false);
     const [activeCategory, setActiveCategory] = useState('All');
-    const [experienceLevel, setExperienceLevel] = useState('Senior (8+ years)');
+    const [experienceLevel, setExperienceLevel] = useState('All Levels');
     const [sortBy, setSortBy] = useState('Recommended');
+    const [selectedExpertise, setSelectedExpertise] = useState([]);
+    const [selectedIndustries, setSelectedIndustries] = useState([]);
+    const [activePopularFilter, setActivePopularFilter] = useState('All');
 
     const notifications = [
         { id: 1, title: 'New Message', body: 'Sarah Chen sent you a message', time: '2m ago', unread: true },
@@ -127,6 +126,7 @@ const MentorDirectory = () => {
         { id: 3, title: 'Session Reminder', body: 'Upcoming session with Alex in 30m', time: '5h ago', unread: true },
     ];
 
+    // filter sidebar
     const FilterSidebarContent = ({ isMobile = false }) => (
         <div className={`space-y-8 ${isMobile ? 'p-6' : ''}`}>
             {!isMobile && (
@@ -140,12 +140,21 @@ const MentorDirectory = () => {
                 <div>
                     <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Expertise</h3>
                     <div className="space-y-3">
-                        {EXPERTISE_FILTERS.map(f => (
-                            <label key={f.name} className="flex items-center gap-3 cursor-pointer group">
-                                <div className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${f.checked ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}>
+                        {EXPERTISE_FILTERS.map(expertise => (
+                            <label key={expertise} className="flex items-center gap-3 cursor-pointer group">
+                                <div
+                                    onClick={() => {
+                                        setSelectedExpertise(prev =>
+                                            prev.includes(expertise)
+                                                ? prev.filter(e => e !== expertise)
+                                                : [...prev, expertise]
+                                        );
+                                    }}
+                                    className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${selectedExpertise.includes(expertise) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}
+                                >
                                     <Check size={12} className="text-white" />
                                 </div>
-                                <span className={`text-[13px] ${f.checked ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{f.name}</span>
+                                <span className={`text-[13px] ${selectedExpertise.includes(expertise) ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{expertise}</span>
                             </label>
                         ))}
                     </div>
@@ -154,23 +163,31 @@ const MentorDirectory = () => {
                 <div>
                     <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Industry</h3>
                     <div className="space-y-3">
-                        {INDUSTRY_FILTERS.map(f => (
-                            <label key={f.name} className="flex items-center gap-3 cursor-pointer group">
-                                <div className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${f.checked ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}>
+                        {INDUSTRY_FILTERS.map(industry => (
+                            <label key={industry} className="flex items-center gap-3 cursor-pointer group">
+                                <div
+                                    onClick={() => {
+                                        setSelectedIndustries(prev =>
+                                            prev.includes(industry)
+                                                ? prev.filter(i => i !== industry)
+                                                : [...prev, industry]
+                                        );
+                                    }}
+                                    className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${selectedIndustries.includes(industry) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}
+                                >
                                     <Check size={12} className="text-white" />
                                 </div>
-                                <span className={`text-[13px] ${f.checked ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{f.name}</span>
+                                <span className={`text-[13px] ${selectedIndustries.includes(industry) ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{industry}</span>
                             </label>
                         ))}
                     </div>
                 </div>
 
-                {/* Custom Select for Experience Level */}
                 <CustomSelect
                     label="Experience Level"
                     value={experienceLevel}
                     onChange={setExperienceLevel}
-                    options={['Senior (8+ years)', 'Mid-level (3-7 years)', 'Junior (0-2 years)']}
+                    options={['All Levels', 'Senior (8+ years)', 'Mid-level (3-7 years)', 'Junior (0-2 years)']}
                 />
 
                 <div className="bg-[#F1F5F9] rounded-2xl p-4.5 border border-slate-100">
@@ -198,7 +215,6 @@ const MentorDirectory = () => {
                 `}
             </style>
 
-            {/* Header */}
             <header className="bg-white border-b border-slate-200 h-16 shrink-0 z-[60] flex items-center px-4 lg:px-6">
                 <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-10">
@@ -225,7 +241,6 @@ const MentorDirectory = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        {/* Notification with Premium Banner */}
                         <div className="relative">
                             <button onClick={() => setShowNotifications(!showNotifications)} className={`p-2 transition-colors relative rounded-full ${showNotifications ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}>
                                 <Bell size={20} />
@@ -276,14 +291,11 @@ const MentorDirectory = () => {
             </header>
 
             <div className="flex flex-1 overflow-hidden relative">
-                {/* Desktop Sidebar */}
                 <aside className="hidden lg:block w-[280px] shrink-0 bg-white border-r border-slate-200 overflow-y-auto px-6 py-8 custom-scrollbar">
                     <FilterSidebarContent />
                 </aside>
 
-                {/* Main View Area */}
                 <main className="flex-1 overflow-y-auto bg-[#F8FAFC] custom-scrollbar pb-32 lg:pb-8 relative">
-                    {/* Mobile Search & Filter Area */}
                     <div className="lg:hidden p-4 space-y-4 bg-white border-b border-slate-100">
                         <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-600" size={18} />
@@ -294,7 +306,6 @@ const MentorDirectory = () => {
                             />
                         </div>
 
-                        {/* Scrollable Categories */}
                         <div className="flex gap-2 overflow-x-auto no-scrollbar py-2">
                             {CATEGORIES.map(cat => {
                                 const Icon = cat.icon;
@@ -311,7 +322,6 @@ const MentorDirectory = () => {
                             })}
                         </div>
 
-                        {/* Showing X mentors & Advanced Filters */}
                         <div className="flex items-center justify-between pt-2">
                             <span className="text-[14px] font-bold text-slate-400">Showing 124 mentors</span>
                             <button
@@ -325,14 +335,27 @@ const MentorDirectory = () => {
                     </div>
 
                     <div className="max-w-[1200px] mx-auto p-4 lg:p-8">
-                        {/* Desktop Toolbar */}
                         <div className="hidden lg:flex items-center justify-between mb-8">
                             <div className="flex items-center gap-8">
                                 <div className="flex items-center gap-4">
                                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest pt-0.5">Popular:</span>
                                     <div className="flex gap-2">
-                                        {['Strategy', 'Python', 'SaaS Scaling'].map(t => (
-                                            <button key={t} className="text-[11px] font-bold bg-white border border-slate-200 text-slate-500 px-4 py-1.5 rounded-xl hover:border-slate-900 shadow-sm transition-all">{t}</button>
+                                        {['All', 'Strategy', 'Python', 'SaaS Scaling', 'Architecture'].map(t => (
+                                            <button
+                                                key={t}
+                                                onClick={() => setActivePopularFilter(t)}
+                                                className={`text-[11px] font-bold px-4 py-1.5 rounded-xl transition-all duration-300 shadow-sm relative overflow-hidden group ${activePopularFilter === t ? 'text-white' : 'bg-white border border-slate-200 text-slate-500 hover:text-blue-600'}`}
+                                            >
+                                                <span className="relative z-10">{t}</span>
+                                                {activePopularFilter === t && (
+                                                    <motion.div
+                                                        layoutId="activeFilter"
+                                                        className="absolute inset-0 bg-[#1B3BF5]"
+                                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                                    />
+                                                )}
+                                                <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -349,9 +372,33 @@ const MentorDirectory = () => {
                             </div>
                         </div>
 
-                        {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {MENTORS.map((m) => (
+                            {MENTORS.filter(m => {
+                                const matchesSearch = m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    m.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    m.skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
+
+                                const matchesPopular = activePopularFilter === 'All' ||
+                                    (m.popularTags && m.popularTags.includes(activePopularFilter));
+
+                                const matchesCategory = activeCategory === 'All' ||
+                                    (activeCategory === 'Engineering' && m.expertise === 'Software Engineering') ||
+                                    (activeCategory === 'Design' && m.expertise === 'UX Design') ||
+                                    (activeCategory === 'Marketing' && m.expertise === 'Marketing');
+
+                                const matchesExpertise = selectedExpertise.length === 0 ||
+                                    selectedExpertise.includes(m.expertise);
+
+                                const matchesIndustry = selectedIndustries.length === 0 ||
+                                    selectedIndustries.includes(m.industry);
+
+                                const matchesExperience = experienceLevel === 'All Levels' ||
+                                    m.experience === experienceLevel;
+
+                                const matchesAvailability = !isAcceptingMentees || m.status === 'online';
+
+                                return matchesSearch && matchesPopular && matchesCategory && matchesExpertise && matchesIndustry && matchesExperience && matchesAvailability;
+                            }).map((m) => (
                                 <motion.div
                                     key={m.id}
                                     whileHover={{ y: -4 }}
@@ -381,9 +428,12 @@ const MentorDirectory = () => {
                                     </p>
 
                                     <div className="flex gap-2.5 mt-auto">
-                                        <button className="flex-1 bg-[#1B3BF5] hover:bg-[#1429B8] text-white font-bold py-3.5 rounded-2xl text-[14px] shadow-lg shadow-blue-600/10 transition-all active:scale-[0.98]">
+                                        <Link
+                                            to={`/mentorship/profile/${m.id}`}
+                                            className="flex-1 bg-[#1B3BF5] hover:bg-[#1429B8] text-center text-white font-bold py-3.5 rounded-2xl text-[14px] shadow-lg shadow-blue-600/10 transition-all active:scale-[0.98]"
+                                        >
                                             View Profile
-                                        </button>
+                                        </Link>
                                         <button className="w-[52px] h-[52px] shrink-0 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-400 hover:text-blue-600 transition-all hover:border-blue-100 hover:bg-blue-50 shadow-sm">
                                             <MessageSquare size={20} />
                                         </button>
@@ -392,7 +442,6 @@ const MentorDirectory = () => {
                             ))}
                         </div>
 
-                        {/* Mobile Load More */}
                         <div className="lg:hidden mt-8 flex justify-center">
                             <button className="w-full bg-white border-2 border-slate-200 text-slate-900 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-sm active:scale-95">
                                 <Plus size={20} />
@@ -400,7 +449,6 @@ const MentorDirectory = () => {
                             </button>
                         </div>
 
-                        {/* Desktop Pagination */}
                         <div className="hidden lg:flex items-center justify-center gap-2 mt-12">
                             <button className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-white hover:border-slate-900 transition-all">
                                 <ChevronLeft size={18} />
@@ -418,7 +466,6 @@ const MentorDirectory = () => {
                 </main>
             </div>
 
-            {/* Fixed Footer - Matches Image 2 */}
             <footer className="hidden lg:flex shrink-0 bg-white border-t border-slate-200 h-16 items-center px-10 z-50">
                 <div className="flex items-center justify-between w-full mx-auto max-w-[1400px]">
                     <div className="flex items-center gap-3">
@@ -433,7 +480,6 @@ const MentorDirectory = () => {
                 </div>
             </footer>
 
-            {/* Mobile Filter Sheet */}
             <AnimatePresence>
                 {showMobileFilters && (
                     <>

@@ -14,10 +14,9 @@ const DashboardSidebar = () => {
 
     const navItems = [
         { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-        { name: 'My Learning', icon: GraduationCap, path: '/dashboard/learning' },
-        { name: 'Mentorship', icon: Users, path: '/mentorship' },
-        { name: 'Opportunities', icon: Briefcase, path: '/dashboard/opportunities' },
-        { name: 'Analytics', icon: BarChart2, path: '/dashboard/analytics' },
+        { name: 'Learn', icon: GraduationCap, path: '/dashboard/learn' },
+        { name: 'Connect', icon: Users, path: '/dashboard/connect' },
+        { name: 'Jobs', icon: Briefcase, path: '/dashboard/jobs' },
     ];
 
     return (
@@ -25,12 +24,7 @@ const DashboardSidebar = () => {
             <div>
                 {/* Logo */}
                 <div className="flex items-center gap-2 px-6 mb-8">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-
-                        <div className="w-4 h-4 border-2 border-white rounded-sm relative">
-                            <div className="absolute w-4 h-4 border-2 border-white top-1 left-1 rounded-sm mix-blend-overlay"></div>
-                        </div>
-                    </div>
+                    <img src="/logo.png" alt="Bridgify" className="h-8 w-8 object-contain rounded-md" />
                     <div>
                         <span className="text-xl font-bold text-slate-900 leading-none block">Bridgify</span>
                         <span className="text-[10px] text-slate-500 font-medium tracking-wide">Career Platform</span>
@@ -71,13 +65,13 @@ const DashboardSidebar = () => {
                 </Link>
 
                 {/* User Profile Footer */}
-                <div className="flex items-center gap-3 px-4 py-3 border border-gray-100 rounded-2xl mx-1 bg-white shadow-sm">
-                    <div className="w-9 h-9 rounded-full bg-orange-100 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="flex items-center gap-3 px-4 py-3 border border-gray-100 rounded-2xl mx-1 bg-gray-50/50 shadow-sm mt-8">
+                    <div className="w-10 h-10 rounded-full bg-slate-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col min-w-0">
                         <span className="text-sm font-bold text-slate-900 truncate">Alex Morgan</span>
-                        <span className="text-xs text-slate-500 truncate">Pro Member</span>
+                        <span className="text-xs text-slate-500 truncate">Student Account</span>
                     </div>
                 </div>
             </div>
