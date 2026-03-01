@@ -1,7 +1,8 @@
 import React from 'react';
 import { GraduationCap, UserRound, BriefcaseBusiness } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { smooth } from '../animations';
+import { smooth } from '../../animations';
+
 
 const HowItWorks = () => {
   const steps = [

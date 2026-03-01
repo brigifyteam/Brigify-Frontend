@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react'; // Assuming lucide-react is installed
 import { motion } from 'framer-motion';
-import { smooth } from '../animations';
+import { smooth } from '../../animations';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ const Navbar = () => {
           <Link to="/how-it-works" className="hover:text-[#1132d4] transition-colors">
             How It Works
           </Link>
-          <Link to="/mentors" className="hover:text-[#1132d4] transition-colors">
+          <Link to="/mentorship" className="hover:text-[#1132d4] transition-colors">
             Mentors
           </Link>
           <Link to="/jobs" className="hover:text-[#1132d4] transition-colors">
@@ -91,7 +91,7 @@ const Navbar = () => {
               How It Works
             </Link>
             <Link
-              to="/mentors"
+              to="/mentorship"
               className="text-gray-800 font-medium hover:text-[#1132d4] transition-colors"
               onClick={closeMenu}
             >

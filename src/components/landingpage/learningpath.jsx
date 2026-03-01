@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { 
-  Filter, 
-  ArrowUpDown, 
-  Clock, 
-  Star, 
-  Code, 
-  BrainCircuit, 
+import {
+  Filter,
+  ArrowUpDown,
+  Clock,
+  Star,
+  Code,
+  BrainCircuit,
   Check,
   ChevronRight
 } from 'lucide-react';
@@ -117,14 +117,14 @@ const CATEGORY_META = {
 
 export default function LearningPaths() {
   const [activeTab, setActiveTab] = useState('all');
-  
+
   // Filter & Sort State
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  
+
   const [selectedLevels, setSelectedLevels] = useState([]); // Empty means all levels
   const [sortBy, setSortBy] = useState('popular'); // popular, rating, duration
-  
+
   const filterRef = useRef(null);
   const sortRef = useRef(null);
 
@@ -139,11 +139,7 @@ export default function LearningPaths() {
   }, []);
 
   // --- Filter & Sort Handlers ---
-  const toggleLevel = (level) => {
-    setSelectedLevels(prev => 
-      prev.includes(level) ? prev.filter(l => l !== level) : [...prev, level]
-    );
-  };
+
 
   // --- Derived Data using useMemo ---
   const processedCourses = useMemo(() => {
@@ -173,14 +169,14 @@ export default function LearningPaths() {
   }, [selectedLevels, sortBy]);
 
   // Determine which categories to display
-  const categoriesToShow = activeTab === 'all' 
-    ? Object.keys(processedCourses) 
+  const categoriesToShow = activeTab === 'all'
+    ? Object.keys(processedCourses)
     : [activeTab].filter(cat => processedCourses[cat]);
 
   return (
     <div className="min-h-screen bg-[#f8f9fc] py-30 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* --- Header Section --- */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">
@@ -193,7 +189,7 @@ export default function LearningPaths() {
 
         {/* --- Controls Bar: Tabs + Filter/Sort --- */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between border-b border-gray-200 mb-10 pb-4 lg:pb-0 gap-4">
-          
+
           {/* Tabs */}
           <div className="flex overflow-x-auto hide-scrollbar -mb-px w-full lg:w-auto">
             <div className="flex space-x-6 lg:space-x-8 px-1">
@@ -201,11 +197,10 @@ export default function LearningPaths() {
                 <button
                   key={category.id}
                   onClick={() => setActiveTab(category.id)}
-                  className={`whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                    activeTab === category.id
+                  className={`whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === category.id
                       ? 'border-blue-600 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
+                    }`}
                 >
                   {category.label}
                 </button>
@@ -215,10 +210,10 @@ export default function LearningPaths() {
 
           {/* Filter & Sort Buttons */}
           <div className="flex items-center gap-3 lg:pb-4 self-start lg:self-auto">
-            
+
             {/* Filter Dropdown */}
             <div className="relative" ref={filterRef}>
-              <button 
+              <button
                 onClick={() => { setIsFilterOpen(!isFilterOpen); setIsSortOpen(false); }}
                 className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-100"
               >
@@ -230,7 +225,7 @@ export default function LearningPaths() {
                   </span>
                 )}
               </button>
-              
+
               {isFilterOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-100 rounded-xl shadow-lg z-20 py-2">
                   <div className="px-4 py-2 border-b border-gray-100 mb-2">
@@ -238,9 +233,8 @@ export default function LearningPaths() {
                   </div>
                   {['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT', 'ALL LEVELS'].map(level => (
                     <label key={level} className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 cursor-pointer group">
-                      <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
-                        selectedLevels.includes(level) ? 'bg-blue-600 border-blue-600' : 'border-gray-300 bg-white group-hover:border-blue-400'
-                      }`}>
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${selectedLevels.includes(level) ? 'bg-blue-600 border-blue-600' : 'border-gray-300 bg-white group-hover:border-blue-400'
+                        }`}>
                         {selectedLevels.includes(level) && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                       </div>
                       <span className="text-sm text-gray-700 font-medium capitalize">{level.toLowerCase()}</span>
@@ -259,7 +253,7 @@ export default function LearningPaths() {
 
             {/* Sort Dropdown */}
             <div className="relative" ref={sortRef}>
-              <button 
+              <button
                 onClick={() => { setIsSortOpen(!isSortOpen); setIsFilterOpen(false); }}
                 className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-100"
               >
@@ -277,12 +271,11 @@ export default function LearningPaths() {
                     { id: 'rating', label: 'Highest Rated' },
                     { id: 'duration', label: 'Shortest Duration' },
                   ].map(option => (
-                    <button 
+                    <button
                       key={option.id}
                       onClick={() => { setSortBy(option.id); setIsSortOpen(false); }}
-                      className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
-                        sortBy === option.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50'
-                      }`}
+                      className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${sortBy === option.id ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50'
+                        }`}
                     >
                       {option.label}
                     </button>
@@ -310,7 +303,7 @@ export default function LearningPaths() {
 
             return (
               <div key={categoryId} className="mb-12">
-                
+
                 {/* Section Header */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
@@ -327,8 +320,8 @@ export default function LearningPaths() {
                 {/* Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {processedCourses[categoryId].map((course) => (
-                    <div 
-                      key={course.id} 
+                    <div
+                      key={course.id}
                       className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group"
                     >
                       {/* Image Banner Area */}
@@ -339,12 +332,12 @@ export default function LearningPaths() {
                             {course.level}
                           </span>
                         </div>
-                        
+
                         {/* Background Image & Overlay */}
                         <div className={`absolute inset-0 ${course.imageOverlay} z-0 mix-blend-multiply group-hover:opacity-80 transition-opacity`} />
-                        <img 
-                          src={course.image} 
-                          alt={course.title} 
+                        <img
+                          src={course.image}
+                          alt={course.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
@@ -366,18 +359,17 @@ export default function LearningPaths() {
                           </div>
                           <div className="flex items-center gap-1.5">
                             <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                            <span className="text-gray-700">{course.rating}</span> 
+                            <span className="text-gray-700">{course.rating}</span>
                             <span className="font-normal text-gray-400">({course.reviewsText})</span>
                           </div>
                         </div>
 
                         {/* Action Button */}
-                        <button 
-                          className={`w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 ${
-                            course.isPrimaryBtn
+                        <button
+                          className={`w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 ${course.isPrimaryBtn
                               ? 'bg-[#1132d4] text-white hover:bg-blue-800 focus:ring-[#1132d4] shadow-sm'
                               : 'bg-indigo-50 text-[#1132d4] hover:bg-indigo-100 focus:ring-indigo-200'
-                          }`}
+                            }`}
                         >
                           Enroll Now
                         </button>

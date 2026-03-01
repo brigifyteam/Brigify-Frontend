@@ -2,10 +2,35 @@ import React, { useState } from 'react';
 import { Mail, Lock, LogIn } from 'lucide-react';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from '../../api/auth';
 
 const LoginForm = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState({});
+
+    const loginMutation = useMutation({
+        mutationFn: loginUser,
+        onSuccess: (data) => {
+            console.log('Login successful:', data);
+            // store token and maybe user info
+            try {
+                if (data?.token) localStorage.setItem('token', data.token);
+            } catch (e) {
+                console.warn('Unable to save token to localStorage', e);
+            }
+            // TODO: redirect user to dashboard or update auth context
+        },
+        onError: (error) => {
+            console.error('Login failed:', error.response?.data || error.message);
+            const resp = error.response?.data;
+            if (resp && resp.message) {
+                setErrors({ general: resp.message });
+            } else {
+                setErrors({ general: 'Login failed. Please check credentials and try again.' });
+            }
+        },
+    });
 
     const handleInputChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -32,7 +57,10 @@ const LoginForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) {
-            console.log("Login Submit:", formData);
+            loginMutation.mutate({
+                email: formData.email,
+                password: formData.password,
+            });
         }
     };
 
@@ -58,13 +86,18 @@ const LoginForm = () => {
                 onChange={(e) => handleInputChange('password', e.target.value)}
             />
 
+            {errors.general && (
+                <p className="text-sm text-red-600 font-medium">{errors.general}</p>
+            )}
+
             <Button
                 fullWidth
                 className="py-4 font-bold tracking-wide"
                 rightIcon={<LogIn size={18} />}
                 type="submit"
+                disabled={loginMutation.isLoading}
             >
-                Login to Dashboard
+                {loginMutation.isLoading ? "Logging in..." : "Login to Dashboard"}
             </Button>
         </form>
     );

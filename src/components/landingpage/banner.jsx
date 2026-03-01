@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { smooth } from '../animations';
+import { smooth } from '../../animations';
 
 const HeroBanner = () => {
   return (

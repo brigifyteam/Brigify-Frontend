@@ -21,7 +21,7 @@ const MentorSidebar = ({ currentStep = 1 }) => {
                     {/* Vertical Line */}
                     <div className="absolute left-3 top-2 bottom-full w-0.5 bg-gray-100 -z-10" />
 
-                    {steps.map((step, index) => {
+                    {steps.map((step) => {
                         const isActive = step.number === currentStep;
 
                         return (

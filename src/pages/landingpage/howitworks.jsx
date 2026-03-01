@@ -1,7 +1,7 @@
-import Navbar from "../components/Navbar";
-import HeroBanner from "../components/banner";
-import StepsSection from "../components/stepsSection";
-import Footer from "../components/footer";
+import Navbar from "../../components/landingpage/Navbar";
+import HeroBanner from "../../components/landingpage/banner";
+import StepsSection from "../../components/landingpage/stepsSection";
+import Footer from "../../components/landingpage/footer";
 
 const HowItWorks = () => {
     return (

@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar";
-import JobBoard from "../components/jobBoard";
+import Navbar from "../../components/landingpage/Navbar";
+import JobBoard from "../../components/landingpage/jobBoard";
 
 const jobs = () => {
     return(

@@ -2,15 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 
-const OptionCard = ({ icon: Icon, title, description, selected, onClick }) => {
+const OptionCard = ({ icon: Icon, title, description, selected, onClick }) => { // eslint-disable-line no-unused-vars
     return (
         <motion.div
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             onClick={onClick}
             className={`relative p-6 rounded-xl border-2 cursor-pointer transition-all duration-200 h-full flex flex-col justify-between ${selected
-                    ? 'border-blue-600 bg-blue-50/50 shadow-md'
-                    : 'border-gray-200 hover:border-blue-200 bg-white'
+                ? 'border-blue-600 bg-blue-50/50 shadow-md'
+                : 'border-gray-200 hover:border-blue-200 bg-white'
                 }`}
         >
             {selected && (

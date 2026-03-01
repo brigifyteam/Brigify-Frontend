@@ -1,7 +1,8 @@
 import React from 'react';
 import { BookOpen, Video, Briefcase, ShieldCheck, Users, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { smooth } from '../animations';
+import { smooth } from '../../animations';
+
 
 const EverythingYouNeed = () => {
   const features = [

@@ -7,12 +7,6 @@ import {
     ChevronRight,
     Bell,
     Check,
-    LayoutDashboard,
-    Users,
-    Briefcase,
-    BarChart2,
-    Settings,
-    LogOut,
     Plus,
     X,
     SlidersHorizontal,
@@ -98,7 +92,7 @@ const EXPERTISE_FILTERS = [
     'Data Science'
 ];
 
-// industry filters
+// Industry filters
 const INDUSTRY_FILTERS = [
     'Fintech',
     'Healthcare',
@@ -106,6 +100,93 @@ const INDUSTRY_FILTERS = [
     'E-commerce',
     'AI/ML'
 ];
+
+// Sidebar Content Component (outside to avoid re-renders and fix lint)
+const FilterSidebarContent = ({
+    isMobile = false,
+    selectedExpertise,
+    setSelectedExpertise,
+    selectedIndustries,
+    setSelectedIndustries,
+    experienceLevel,
+    setExperienceLevel,
+    isAcceptingMentees,
+    setIsAcceptingMentees
+}) => (
+    <div className={`space-y-8 ${isMobile ? 'p-6' : ''}`}>
+        {!isMobile && (
+            <div>
+                <h1 className="text-xl font-bold text-slate-900 leading-tight">Mentor Directory</h1>
+                <p className="text-[12px] text-slate-500 mt-1.5 font-medium">Found 1,240 professional mentors</p>
+            </div>
+        )}
+
+        <div className="space-y-8">
+            <div>
+                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Expertise</h3>
+                <div className="space-y-3">
+                    {EXPERTISE_FILTERS.map(expertise => (
+                        <label key={expertise} className="flex items-center gap-3 cursor-pointer group">
+                            <div
+                                onClick={() => {
+                                    setSelectedExpertise(prev =>
+                                        prev.includes(expertise)
+                                            ? prev.filter(e => e !== expertise)
+                                            : [...prev, expertise]
+                                    );
+                                }}
+                                className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${selectedExpertise.includes(expertise) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}
+                            >
+                                <Check size={12} className="text-white" />
+                            </div>
+                            <span className={`text-[13px] ${selectedExpertise.includes(expertise) ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{expertise}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+
+            <div>
+                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Industry</h3>
+                <div className="space-y-3">
+                    {INDUSTRY_FILTERS.map(industry => (
+                        <label key={industry} className="flex items-center gap-3 cursor-pointer group">
+                            <div
+                                onClick={() => {
+                                    setSelectedIndustries(prev =>
+                                        prev.includes(industry)
+                                            ? prev.filter(i => i !== industry)
+                                            : [...prev, industry]
+                                    );
+                                }}
+                                className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${selectedIndustries.includes(industry) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}
+                            >
+                                <Check size={12} className="text-white" />
+                            </div>
+                            <span className={`text-[13px] ${selectedIndustries.includes(industry) ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{industry}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+
+            <CustomSelect
+                label="Experience Level"
+                value={experienceLevel}
+                onChange={setExperienceLevel}
+                options={['All Levels', 'Senior (8+ years)', 'Mid-level (3-7 years)', 'Junior (0-2 years)']}
+            />
+
+            <div className="bg-[#F1F5F9] rounded-2xl p-4.5 border border-slate-100">
+                <div className="flex items-center justify-between mb-2">
+                    <span className="text-[13px] font-bold text-slate-700">Accepting Mentees</span>
+                    <button onClick={() => setIsAcceptingMentees(!isAcceptingMentees)} className={`w-10 h-5.5 rounded-full relative transition-colors ${isAcceptingMentees ? 'bg-blue-600' : 'bg-slate-300'}`}>
+                        <div className={`absolute top-0.5 w-4.5 h-4.5 bg-white rounded-full transition-all shadow-sm ${isAcceptingMentees ? 'left-[18px]' : 'left-[2px]'}`} />
+                    </button>
+                </div>
+                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-tight">Only show available mentors</p>
+            </div>
+        </div>
+    </div>
+);
 
 // mentors directory
 const MentorDirectory = () => {
@@ -126,82 +207,6 @@ const MentorDirectory = () => {
         { id: 3, title: 'Session Reminder', body: 'Upcoming session with Alex in 30m', time: '5h ago', unread: true },
     ];
 
-    // filter sidebar
-    const FilterSidebarContent = ({ isMobile = false }) => (
-        <div className={`space-y-8 ${isMobile ? 'p-6' : ''}`}>
-            {!isMobile && (
-                <div>
-                    <h1 className="text-xl font-bold text-slate-900 leading-tight">Mentor Directory</h1>
-                    <p className="text-[12px] text-slate-500 mt-1.5 font-medium">Found 1,240 professional mentors</p>
-                </div>
-            )}
-
-            <div className="space-y-8">
-                <div>
-                    <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Expertise</h3>
-                    <div className="space-y-3">
-                        {EXPERTISE_FILTERS.map(expertise => (
-                            <label key={expertise} className="flex items-center gap-3 cursor-pointer group">
-                                <div
-                                    onClick={() => {
-                                        setSelectedExpertise(prev =>
-                                            prev.includes(expertise)
-                                                ? prev.filter(e => e !== expertise)
-                                                : [...prev, expertise]
-                                        );
-                                    }}
-                                    className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${selectedExpertise.includes(expertise) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}
-                                >
-                                    <Check size={12} className="text-white" />
-                                </div>
-                                <span className={`text-[13px] ${selectedExpertise.includes(expertise) ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{expertise}</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-
-                <div>
-                    <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Industry</h3>
-                    <div className="space-y-3">
-                        {INDUSTRY_FILTERS.map(industry => (
-                            <label key={industry} className="flex items-center gap-3 cursor-pointer group">
-                                <div
-                                    onClick={() => {
-                                        setSelectedIndustries(prev =>
-                                            prev.includes(industry)
-                                                ? prev.filter(i => i !== industry)
-                                                : [...prev, industry]
-                                        );
-                                    }}
-                                    className={`w-4.5 h-4.5 rounded border transition-all flex items-center justify-center ${selectedIndustries.includes(industry) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200 group-hover:border-blue-300'}`}
-                                >
-                                    <Check size={12} className="text-white" />
-                                </div>
-                                <span className={`text-[13px] ${selectedIndustries.includes(industry) ? 'text-slate-900 font-bold' : 'text-slate-500 font-medium group-hover:text-slate-700'}`}>{industry}</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-
-                <CustomSelect
-                    label="Experience Level"
-                    value={experienceLevel}
-                    onChange={setExperienceLevel}
-                    options={['All Levels', 'Senior (8+ years)', 'Mid-level (3-7 years)', 'Junior (0-2 years)']}
-                />
-
-                <div className="bg-[#F1F5F9] rounded-2xl p-4.5 border border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-[13px] font-bold text-slate-700">Accepting Mentees</span>
-                        <button onClick={() => setIsAcceptingMentees(!isAcceptingMentees)} className={`w-10 h-5.5 rounded-full relative transition-colors ${isAcceptingMentees ? 'bg-blue-600' : 'bg-slate-300'}`}>
-                            <div className={`absolute top-0.5 w-4.5 h-4.5 bg-white rounded-full transition-all shadow-sm ${isAcceptingMentees ? 'left-[18px]' : 'left-[2px]'}`} />
-                        </button>
-                    </div>
-                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-tight">Only show available mentors</p>
-                </div>
-            </div>
-        </div>
-    );
 
     return (
         <div className="h-screen bg-[#F8FAFC] flex flex-col overflow-hidden font-sans">
@@ -292,7 +297,16 @@ const MentorDirectory = () => {
 
             <div className="flex flex-1 overflow-hidden relative">
                 <aside className="hidden lg:block w-[280px] shrink-0 bg-white border-r border-slate-200 overflow-y-auto px-6 py-8 custom-scrollbar">
-                    <FilterSidebarContent />
+                    <FilterSidebarContent
+                        selectedExpertise={selectedExpertise}
+                        setSelectedExpertise={setSelectedExpertise}
+                        selectedIndustries={selectedIndustries}
+                        setSelectedIndustries={setSelectedIndustries}
+                        experienceLevel={experienceLevel}
+                        setExperienceLevel={setExperienceLevel}
+                        isAcceptingMentees={isAcceptingMentees}
+                        setIsAcceptingMentees={setIsAcceptingMentees}
+                    />
                 </aside>
 
                 <main className="flex-1 overflow-y-auto bg-[#F8FAFC] custom-scrollbar pb-32 lg:pb-8 relative">
@@ -504,7 +518,17 @@ const MentorDirectory = () => {
                                 </button>
                             </div>
                             <div className="flex-1 overflow-y-auto custom-scrollbar">
-                                <FilterSidebarContent isMobile />
+                                <FilterSidebarContent
+                                    isMobile
+                                    selectedExpertise={selectedExpertise}
+                                    setSelectedExpertise={setSelectedExpertise}
+                                    selectedIndustries={selectedIndustries}
+                                    setSelectedIndustries={setSelectedIndustries}
+                                    experienceLevel={experienceLevel}
+                                    setExperienceLevel={setExperienceLevel}
+                                    isAcceptingMentees={isAcceptingMentees}
+                                    setIsAcceptingMentees={setIsAcceptingMentees}
+                                />
                             </div>
                             <div className="p-6 border-t border-slate-100 bg-white sticky bottom-0">
                                 <button onClick={() => setShowMobileFilters(false)} className="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all">
