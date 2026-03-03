@@ -23,7 +23,7 @@ const MobileBottomNav = () => {
     ];
 
     return (
-        <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[400px] h-[76px] bg-white/90 backdrop-blur-xl border border-slate-200/50 rounded-[28px] flex items-center justify-around px-4 z-[100] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 h-[76px] bg-white/95 backdrop-blur-xl border-t border-slate-200/60 flex items-center justify-around px-4 z-[100] shadow-[0_-8px_30px_rgba(0,0,0,0.04)] pb-[env(safe-area-inset-bottom)]">
             {items.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname.startsWith(item.path);
