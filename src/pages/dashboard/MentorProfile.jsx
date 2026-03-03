@@ -4,6 +4,8 @@ import {
     Star,
     MessageSquare,
     Calendar,
+    Users,
+    Clock,
     MapPin,
     Globe,
     GraduationCap,
@@ -172,12 +174,23 @@ const MentorProfile = () => {
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-                                {(mentor.stats || []).map((stat, i) => (
-                                    <div key={i} className="bg-slate-50/50 border border-slate-100 rounded-xl p-3.5 hover:bg-white hover:shadow-sm hover:border-blue-100 transition-all group">
-                                        <p className="text-xl font-bold text-blue-600 mb-0 group-hover:scale-105 transition-transform origin-left">{stat.value}</p>
-                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{stat.label}</p>
-                                    </div>
-                                ))}
+                                {(mentor.stats || []).map((stat, i) => {
+                                    const Icon = stat.label.toLowerCase().includes('mentee') ? Users :
+                                        stat.label.toLowerCase().includes('hour') ? Clock :
+                                            stat.label.toLowerCase().includes('rating') ? Star : Users;
+                                    return (
+                                        <div key={i} className="bg-slate-50/50 border border-slate-100 rounded-xl p-3.5 hover:bg-white hover:shadow-sm hover:border-blue-100 transition-all group relative overflow-hidden">
+                                            {/* Watermark Icon */}
+                                            <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-500 scale-[2] pointer-events-none text-blue-600">
+                                                <Icon size={40} strokeWidth={1} />
+                                            </div>
+                                            <div className="relative z-10">
+                                                <p className="text-xl font-bold text-blue-600 mb-0 group-hover:scale-105 transition-transform origin-left">{stat.value}</p>
+                                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{stat.label}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
 
