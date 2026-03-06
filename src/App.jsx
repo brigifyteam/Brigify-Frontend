@@ -17,6 +17,7 @@ import LearningDashboard from "./pages/dashboard/LearningDashboard";
 import MentorDirectory from "./pages/dashboard/MentorDirectory";
 import MentorProfile from "./pages/dashboard/MentorProfile";
 import MenteeManagement from "./pages/dashboard/MenteeManagement";
+import MentorDashboard from "./pages/dashboard/MentorDashboard";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
       <Route path="/mentorship" element={<MentorDirectory />} />
       <Route path="/mentorship/profile/:id" element={<MentorProfile />} />
       <Route path="/mentee-management" element={<MenteeManagement />} />
+      <Route path="/mentor/dashboard" element={<MentorDashboard />} />
 
     </Routes>
   );
