@@ -6,6 +6,7 @@ import {
     MessageSquare,
     BookOpen,
     Settings,
+    Briefcase,
     Search,
     Bell,
     Plus,
@@ -18,8 +19,9 @@ import {
     ChevronLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    BarChart,
+import { Link } from 'react-router-dom';
+import { 
+    BarChart, 
     Bar,
     XAxis,
     YAxis,
@@ -168,17 +170,24 @@ const NewSessionModal = ({ isOpen, onClose, onSubmit }) => {
     );
 };
 
-const SidebarItem = ({ icon: Icon, label, isActive, isCollapsed, onClick }) => (
-    <button
-        onClick={onClick}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${isActive
+const SidebarItem = ({ icon: Icon, label, isActive, isCollapsed, to, badge }) => (
+    <Link
+        to={to || '#'}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${isActive
             ? 'bg-[#1B3BF5]/5 text-[#1B3BF5] font-bold shadow-sm'
             : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50 font-medium'
             } ${isCollapsed ? 'justify-center px-0' : ''}`}
     >
-        <Icon size={isCollapsed ? 26 : 22} className={`${isActive ? 'text-[#1B3BF5]' : 'text-slate-400'} transition-all`} />
+        <div className="relative">
+            <Icon size={isCollapsed ? 26 : 22} className={`${isActive ? 'text-[#1B3BF5]' : 'text-slate-400'} transition-all`} />
+            {badge && (
+                <span className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#1B3BF5] text-[10px] font-bold text-white ${isCollapsed ? 'ring-2 ring-white' : ''}`}>
+                    {badge}
+                </span>
+            )}
+        </div>
         {!isCollapsed && <span className="text-[14px] whitespace-nowrap">{label}</span>}
-    </button>
+    </Link>
 );
 
 const StatCard = ({ title, value, change, icon: Icon, iconBg, iconColor }) => (
@@ -466,9 +475,10 @@ const MessagesWidget = () => {
         <div className="bg-white rounded-[24px] p-6 border border-slate-100 shadow-sm">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-sm font-bold text-slate-900 tracking-tight">Messages</h3>
-                <button className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 transition-colors">
+                <Link to="/mentor/messages" className="p-1.5 hover:bg-slate-50 rounded-lg text-[#1B3BF5] transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">View All</span>
                     <MessageSquare size={16} />
-                </button>
+                </Link>
             </div>
 
             <div className="space-y-4">
@@ -560,16 +570,17 @@ const MentorDashboard = () => {
 
                 {/* Nav */}
                 <nav className="flex-1 space-y-1.5 overflow-y-auto no-scrollbar">
-                    <SidebarItem icon={LayoutDashboard} label="Home" isActive={activeTab === 'Home'} isCollapsed={isSidebarCollapsed} onClick={() => setActiveTab('Home')} />
-                    <SidebarItem icon={Users} label="Mentees" isActive={activeTab === 'Mentees'} isCollapsed={isSidebarCollapsed} onClick={() => setActiveTab('Mentees')} />
-                    <SidebarItem icon={Calendar} label="Calendar" isActive={activeTab === 'Calendar'} isCollapsed={isSidebarCollapsed} onClick={() => setActiveTab('Calendar')} />
-                    <SidebarItem icon={MessageSquare} label="Messages" isActive={activeTab === 'Messages'} isCollapsed={isSidebarCollapsed} onClick={() => setActiveTab('Messages')} />
-                    <SidebarItem icon={BookOpen} label="Resources" isActive={activeTab === 'Resources'} isCollapsed={isSidebarCollapsed} onClick={() => setActiveTab('Resources')} />
+                    <SidebarItem icon={LayoutDashboard} label="Home" isActive={true} isCollapsed={isSidebarCollapsed} to="/mentor/dashboard" />
+                    <SidebarItem icon={Users} label="Mentorships" isActive={false} isCollapsed={isSidebarCollapsed} to="/mentorship" />
+                    <SidebarItem icon={MessageSquare} label="Messages" isActive={false} isCollapsed={isSidebarCollapsed} to="/mentor/messages" badge="2" />
+                    <SidebarItem icon={Briefcase} label="Jobs" isActive={false} isCollapsed={isSidebarCollapsed} to="/jobs" />
+                    <SidebarItem icon={Calendar} label="Schedule" isActive={false} isCollapsed={isSidebarCollapsed} to="/calendar" />
                 </nav>
 
-                {/* Profile */}
+                {/* Profile/Settings */}
                 <div className="mt-auto pt-6 border-t border-slate-50">
-                    <div className={`flex items-center gap-3 ${isSidebarCollapsed ? 'justify-center' : 'px-2'}`}>
+                    <SidebarItem icon={Settings} label="Settings" isActive={false} isCollapsed={isSidebarCollapsed} to="/settings" />
+                    <div className={`flex items-center gap-3 mt-4 ${isSidebarCollapsed ? 'justify-center' : 'px-2'}`}>
                         <img
                             src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=200&auto=format&fit=crop"
                             alt="Sarah Jenkins"
@@ -608,7 +619,7 @@ const MentorDashboard = () => {
                     </div>
                 </header>
 
-                <div className="flex-1 px-4 md:px-8 py-4 space-y-4 max-w-[1400px] mx-auto w-full">
+                <div className="flex-1 px-4 md:px-8 py-4 pb-24 md:pb-8 space-y-4 max-w-[1400px] mx-auto w-full">
                     {/* Welcome */}
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}><h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Good morning, Sarah.</h2><p className="text-[13px] md:text-sm font-medium text-slate-500 mt-0.5 tracking-tight">Here's what's happening today.</p></motion.div>
 
