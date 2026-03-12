@@ -83,9 +83,9 @@ const MessageBubble = ({ message, isMe }) => (
             {!isMe && (
                 <img src={message.avatar} alt="User" className="w-8 h-8 rounded-xl object-cover shrink-0 mb-1" />
             )}
-            <div className={`space-y-1 ${isMe ? 'items-end' : 'items-start'}`}>
+            <div className={`space-y-1 ${isMe ? 'items-end' : 'items-start'} max-w-full min-w-0`}>
                 <div 
-                    className={`px-5 py-3.5 rounded-[22px] text-[13px] leading-relaxed relative ${
+                    className={`px-5 py-3.5 rounded-[22px] text-[13px] leading-relaxed relative break-words ${
                         isMe 
                             ? 'bg-[#1B3BF5] text-white rounded-br-none shadow-lg shadow-blue-500/20 font-medium' 
                             : 'bg-[#F1F5F9] text-slate-700 rounded-bl-none font-medium'
@@ -116,6 +116,7 @@ const Messages = () => {
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [activeChat, setActiveChat] = useState(1);
     const [messageInput, setMessageInput] = useState('');
+    const [mobileView, setMobileView] = useState('list'); // 'list' | 'chat' | 'profile'
 
     const users = [
         { 
@@ -220,7 +221,7 @@ const Messages = () => {
             {/* Main Content Area: Messaging Layout */}
             <div className="flex-1 flex overflow-hidden">
                 {/* Conversations List Panel */}
-                <div className="w-[300px] md:w-[350px] shrink-0 bg-white border-r border-slate-100 flex flex-col">
+                <div className={`w-full md:w-[350px] shrink-0 bg-white border-r border-slate-100 flex-col ${mobileView === 'list' ? 'flex' : mobileView === 'profile' ? 'hidden lg:flex' : 'hidden md:flex'}`}>
                     <div className="p-6 pb-2">
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Messages</h2>
@@ -258,24 +259,34 @@ const Messages = () => {
                                 key={user.id} 
                                 user={user} 
                                 isActive={activeChat === user.id}
-                                onClick={() => setActiveChat(user.id)}
+                                onClick={() => {
+                                    setActiveChat(user.id);
+                                    setMobileView('chat');
+                                }}
                             />
                         ))}
                     </div>
                 </div>
 
                 {/* Active Chat Window */}
-                <div className="flex-1 flex flex-col bg-white">
+                <div className={`flex-1 min-w-0 flex-col bg-white w-full ${mobileView === 'chat' ? 'flex' : mobileView === 'profile' ? 'hidden lg:flex' : 'hidden md:flex'}`}>
                     {/* Chat Header */}
-                    <header className="h-[80px] shrink-0 border-b border-slate-100 px-8 flex items-center justify-between sticky top-0 bg-white/90 backdrop-blur-xl z-20">
-                        <div className="flex items-center gap-4">
+                    <header className="h-[80px] shrink-0 border-b border-slate-100 px-4 md:px-8 flex items-center justify-between sticky top-0 bg-white/90 backdrop-blur-xl z-20">
+                        <div className="flex items-center gap-2 md:gap-4">
+                            <button 
+                                className="md:hidden p-2 -ml-2 text-slate-400 hover:bg-slate-50 hover:text-slate-600 rounded-xl transition-colors"
+                                onClick={() => setMobileView('list')}
+                            >
+                                <ChevronLeft size={20} />
+                            </button>
                             <motion.div 
                                 key={activeUser.id}
                                 initial={{ scale: 0.9, opacity: 0 }} 
                                 animate={{ scale: 1, opacity: 1 }}
-                                className="relative"
+                                className="relative cursor-pointer group"
+                                onClick={() => setMobileView('profile')}
                             >
-                                <img src={activeUser.avatar} alt="User" className="w-11 h-11 rounded-2xl object-cover shadow-sm" />
+                                <img src={activeUser.avatar} alt="User" className="w-11 h-11 rounded-2xl object-cover shadow-sm group-hover:ring-2 ring-[#1B3BF5] ring-offset-2 transition-all" />
                                 {activeUser.online && <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full shadow-sm"></div>}
                             </motion.div>
                             <div>
@@ -309,16 +320,16 @@ const Messages = () => {
                     </div>
 
                     {/* Chat Input */}
-                    <footer className="p-6 bg-white border-t border-slate-100 pb-24 md:pb-6">
-                        <div className="bg-slate-50 border border-slate-200 rounded-[28px] p-2 pr-3 flex items-center gap-1 focus-within:bg-white focus-within:ring-4 focus-within:ring-blue-500/5 transition-all">
-                            <button className="p-3 text-slate-400 hover:text-[#1B3BF5] transition-all relative">
-                                <Paperclip size={20} />
+                    <footer className="p-4 md:p-6 bg-white border-t border-slate-100 pb-24 md:pb-6 shrink-0">
+                        <div className="bg-slate-50 border border-slate-200 rounded-[28px] p-1.5 md:p-2 pr-2 md:pr-3 flex items-center gap-1 focus-within:bg-white focus-within:ring-4 focus-within:ring-blue-500/5 transition-all">
+                            <button className="p-2 md:p-3 text-slate-400 hover:text-[#1B3BF5] transition-all relative">
+                                <Paperclip size={18} className="md:w-[20px] md:h-[20px]" />
                             </button>
-                            <button className="p-3 text-slate-400 hover:text-[#1B3BF5] transition-all"><Smile size={20} /></button>
+                            <button className="hidden sm:block p-2 md:p-3 text-slate-400 hover:text-[#1B3BF5] transition-all"><Smile size={20} /></button>
                             <input 
                                 type="text" 
                                 placeholder="Type your message..." 
-                                className="flex-1 bg-transparent border-none outline-none text-[14px] font-medium px-2 py-3 placeholder:text-slate-400"
+                                className="flex-1 min-w-0 bg-transparent border-none outline-none text-[13px] md:text-[14px] font-medium px-2 py-2 md:py-3 placeholder:text-slate-400"
                                 value={messageInput}
                                 onChange={(e) => setMessageInput(e.target.value)}
                             />
@@ -331,7 +342,18 @@ const Messages = () => {
                 </div>
 
                 {/* Right Profile Details Panel */}
-                <div className="w-[320px] xl:w-[350px] shrink-0 bg-white border-l border-slate-100 hidden lg:flex flex-col overflow-y-auto no-scrollbar">
+                <div className={`w-full lg:w-[320px] xl:w-[350px] shrink-0 bg-white border-l border-slate-100 flex-col overflow-y-auto overflow-x-hidden no-scrollbar ${mobileView === 'profile' ? 'flex' : 'hidden lg:flex'}`}>
+                    {/* Mobile Profile Header */}
+                    <div className="lg:hidden p-6 pb-0 flex items-center gap-3">
+                        <button 
+                            className="p-2 -ml-2 text-slate-400 hover:bg-slate-50 hover:text-slate-600 rounded-xl transition-colors"
+                            onClick={() => setMobileView('chat')}
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <span className="text-[14px] font-bold text-slate-900">Profile Details</span>
+                    </div>
+
                     <AnimatePresence mode="wait">
                         <motion.div 
                             key={activeUser.id}
@@ -339,7 +361,7 @@ const Messages = () => {
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: -20, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="p-8 pb-5 flex flex-col items-center"
+                            className="p-6 xl:p-8 pb-5 flex flex-col items-center pt-2 lg:pt-8"
                         >
                             <div className="relative mb-3">
                                 <img 
@@ -363,7 +385,7 @@ const Messages = () => {
                         </motion.div>
                     </AnimatePresence>
 
-                    <div className="px-8 space-y-6 pb-8">
+                    <div className="px-6 xl:px-8 space-y-6 pb-8">
                         {/* Goal Section */}
                         <motion.div
                             key={`goal-${activeUser.id}`}
@@ -410,11 +432,11 @@ const Messages = () => {
                                 ].map((file, i) => (
                                     <div key={i} className="flex items-center justify-between group cursor-pointer">
                                         <div className="flex items-center gap-3">
-                                            <div className={`w-8 h-8 ${file.bg} ${file.color} rounded-lg flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
+                                            <div className={`w-8 h-8 shrink-0 ${file.bg} ${file.color} rounded-lg flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
                                                 <file.icon size={14} />
                                             </div>
-                                            <div>
-                                                <p className="text-[12px] font-bold text-slate-900 group-hover:text-[#1B3BF5] transition-colors leading-tight">{file.name}</p>
+                                            <div className="min-w-0 flex-1 pr-2">
+                                                <p className="text-[12px] font-bold text-slate-900 group-hover:text-[#1B3BF5] transition-colors leading-tight truncate w-full">{file.name}</p>
                                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight mt-0.5">{file.date}</p>
                                             </div>
                                         </div>
