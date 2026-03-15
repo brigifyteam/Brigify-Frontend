@@ -10,7 +10,7 @@ const MobileBottomNav = () => {
     const navItems = [
         { name: 'HOME', icon: Home, path: '/mentor/dashboard' },
         { name: 'CALENDAR', icon: Calendar, path: '/calendar' },
-        { name: 'MESSAGES', icon: MessageSquare, path: '/messages', hasNotification: true },
+        { name: 'MESSAGES', icon: MessageSquare, path: '/mentor/messages', hasNotification: true },
         { name: 'PROFILE', icon: '/mentor/profile/1' }, // Defaulting to profile 1 for demo
     ];
 
@@ -18,7 +18,7 @@ const MobileBottomNav = () => {
     const items = [
         { name: 'Home', icon: Home, path: '/mentor/dashboard' },
         { name: 'Mentors', icon: Users, path: '/mentorship' },
-        { name: 'Messages', icon: MessageSquare, path: '/messages', hasNotification: true },
+        { name: 'Messages', icon: MessageSquare, path: '/mentor/messages', hasNotification: true },
         { name: 'Profile', icon: User, path: '/mentor/profile/1' },
     ];
 
